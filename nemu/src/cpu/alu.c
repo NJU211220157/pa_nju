@@ -310,7 +310,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 	{
 	    cpu.eflags.OF= sign(dest!=cpu.eflags.CF);
 	}
-	return dest | b;
+	return (dest | b);
 #endif
 }
 
