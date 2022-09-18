@@ -48,7 +48,7 @@ void set_PF(uint32_t result){
     int count = 0;
     for(int i=0;i<8;i++)
     {
-        if((result&0x1)==0x1)
+        if((result&1)==1)
             count++;
         result=(result>>1);
     }
@@ -123,7 +123,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
     set_OF_add(res,src,dest,data_size);
     set_SF(res,data_size);
     set_PF(res);
-	return res & (0xFFFFFFFF>>(32-data_size));
+	return 0;
 #endif
 }
 
