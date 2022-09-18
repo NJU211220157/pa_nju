@@ -5,7 +5,7 @@ void set_CF_add(uint32_t res,uint32_t src, size_t data_size){
     //如果不截取低data_size位，会无法判断溢出情况
     res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
     src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
-    cpu.eflags.CF = res <= src;
+    cpu.eflags.CF = res < src;
 }
 void set_ZF(uint32_t res,size_t data_size){
     res = res&(0xFFFFFFFF>>(32-data_size));
