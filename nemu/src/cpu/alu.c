@@ -250,8 +250,8 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 #else
 	uint32_t result;
 	result = src & dest;
-	set_ZF(result);
-	set_SF(result);
+	set_ZF(result,data_size);
+	set_SF(result,data_size);
 	set_PF(result);
 	cpu.eflags.OF=0;
 	cpu.eflags.CF=0;
