@@ -296,18 +296,22 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shl(src, dest, data_size);
 #else
+	uint32_t a=0xFFFFFFFF>>(32-data_size);
+	uint32_t b=dest&(0xFFFFFFFF<<data_size);//保留高32-data_size位
 	uint32_t temp = src;
-	while(temp!=0)
+	while(temp!=0)//移动src位
 	{
-	    cpu.eflags.CF = sign(dest);
+	    cpu.eflags.CF = sign(sign_ext(dest&(0xFFFFFFFF>>(32-data_size))),data_size);
+	    //只取低data_size位
 	    dest = dest*2;
+	    dest = dest&(0xFFFFFFFF>>(32-data_size));//保留低data_size位
 	    temp--;
 	}
 	if(src==1)
 	{
 	    cpu.eflags.OF= sign(dest!=cpu.eflags.CF);
 	}
-	return dest;
+	return dest | b;
 #endif
 }
 
