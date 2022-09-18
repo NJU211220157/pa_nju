@@ -1,28 +1,22 @@
 #include "cpu/cpu.h"
 
-void set_CF_add(uint32_t res,uint32_t src, size_t data_size)
-{
+void set_CF_add(uint32_t res,uint32_t src, size_t data_size){
     //要先对res与src截取低data_size位后进行符号扩展
     //如果不截取低data_size位，会无法判断溢出情况
     res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
     src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
     cpu.eflags.CF = res < src;
 }
-void set_ZF(uint32_t res,size_t data_size)
-{
+void set_ZF(uint32_t res,size_t data_size){
     res = res&(0xFFFFFFFF>>(32-data_size));
     cpu.eflags.ZF = (res == 0);
 }
-
-void set_SF(uint32_t res,size_t data_size)
-{
+void set_SF(uint32_t res,size_t data_size){
     //什么时候需要进行符号扩展？
     res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
     cpu.eflags.SF = sign(res);
 }
-
-void set_OF_add(uint32_t result, uint32_t src, uint32_t dest,size_t data_size)
-{
+void set_OF_add(uint32_t result, uint32_t src, uint32_t dest,size_t data_size){
     //获取src,dest,result的符号位前需要进行符号扩展，否则会得到错误的结果
     switch(data_size)
     {
@@ -50,12 +44,11 @@ void set_OF_add(uint32_t result, uint32_t src, uint32_t dest,size_t data_size)
     else
         cpu.eflags.OF = 0;//正负相加一定不会溢出
 }
-void set_PF(uint32_t result)
-{
+void set_PF(uint32_t result){
     int count = 0;
     for(int i=0;i<8;i++)
     {
-        if((result&0x1)==0x1)
+        if((result&1)==1)
             count++;
         result=(result>>1);
     }
@@ -78,14 +71,53 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 #endif
 }
 
+void set_CF_adc(uint32_t res, uint32_t src, size_t data_size){
+    res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
+    src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
+    if(cpu.eflags.CF==1)
+        cpu.eflags.CF = res < src + 1;
+    else 
+        cpu.eflags.CF = res < src;
+}
+void set_OF_adc(uint32_t result, uint32_t src, uint32_t dest,size_t data_size){
+    switch(data_size)
+    {
+        case 8:{
+            result = sign_ext(result & 0xFF,8);//截取低八位
+            src = sign_ext(src & 0xFF,8);
+            dest = sign_ext(dest & 0xFF,8);
+            break;
+        }
+        case 16:{
+            result = sign_ext(result & 0xFFFF,16);
+            src = sign_ext(src & 0xFFFF,16);
+            dest = sign_ext(dest & 0xFFFF,16);
+            break;
+        }
+        default:break;
+    }
+    if(sign(src)==sign(dest))
+    {
+        if(sign(src)!=sign(result))
+            cpu.eflags.OF = 1;
+        else 
+            cpu.eflags.OF = 0;
+    }
+    else
+        cpu.eflags.OF = 0;//正负相加一定不会溢出
+}
 uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
 	return __ref_alu_adc(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
+	uint32_t res=0;
+	res = src + dest +cpu.eflags.CF;
+	set_CF_adc(res,src,data_size);
+    set_ZF(res,data_size);
+    set_OF_add(res,src,dest,data_size);
+    set_SF(res,data_size);
+    set_PF(res);
 	return 0;
 #endif
 }
