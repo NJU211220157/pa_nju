@@ -6,7 +6,7 @@ void set_CF_add(uint32_t res,uint32_t src, size_t data_size)
     //如果不截取低data_size位，会无法判断溢出情况
     res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
     src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
-    cpu.eflags.CF = result < src;
+    cpu.eflags.CF = res < src;
 }
 void set_ZF(uint32_t res,size_t data_size)
 {
@@ -18,10 +18,10 @@ void set_SF(uint32_t res,size_t data_size)
 {
     //什么时候需要进行符号扩展？
     res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
-    cpu.eflags.SF = sign(result);
+    cpu.eflags.SF = sign(res);
 }
 
-void set_OF_add(uint32_t result, uint32_t src, uint32_t,dest,data_size)
+void set_OF_add(uint32_t result, uint32_t src, uint32_t dest,size_t data_size)
 {
     //获取src,dest,result的符号位前需要进行符号扩展，否则会得到错误的结果
     switch(data_size)
@@ -51,14 +51,14 @@ void set_OF_add(uint32_t result, uint32_t src, uint32_t,dest,data_size)
         cpu.eflags.OF == 0;//正负相加一定不会溢出
     return 0;
 }
-void set_PF(result)
+void set_PF(uint32_t result)
 {
     int count = 0;
     for(int i=0;i<8;i++)
     {
-        if(result&0x1==0x1)
+        if((result&0x1)==0x1)
             count++;
-        result=result>>1;
+        result=(result>>1);
     }
     cpu.eflags.PF = (count%2==0);//偶数为0，奇数位1
 }
@@ -75,7 +75,7 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
     set_OF_add(res,src,dest,data_size);
     set_SF(res,data_size);
     set_PF(res);
-	return rec&(0xFFFFFFFF>>(32-data_size));//32位无符号加法
+	return __ref_alu_sub&(0xFFFFFFFF>>(32-data_size));//32位无符号加法
 #endif
 }
 
