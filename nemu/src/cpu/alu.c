@@ -255,7 +255,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 	set_PF(result);
 	cpu.eflags.OF=0;
 	cpu.eflags.CF=0;
-	return result;
+	return result &(0xFFFFFFFF>>(32-data_size));
 #endif
 }
 
