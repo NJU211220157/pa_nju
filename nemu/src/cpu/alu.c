@@ -117,14 +117,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_adc(src, dest, data_size);
 #else
 	uint32_t res = 0;
-	switch(cpu.eflags.CPU)
-	    case 1:
-	        res = src + dest + 1;
-	        break;
-	    case 0:
-	        res = src +dest;
-	        break;
-	    default:break;
+	res = (uint32_t)src + dest +cpu.eflags.CF;
 	set_CF_adc(res,src,data_size);
     set_ZF(res,data_size);
     set_OF_add(res,src,dest,data_size);
