@@ -70,7 +70,6 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	return res&(0xFFFFFFFF>>(32-data_size));//32位无符号加法
 #endif
 }
-
 void set_CF_adc(uint32_t res, uint32_t src, size_t data_size){
     res = sign_ext(res&(0xFFFFFFFF>>(32-data_size)),data_size);
     src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
@@ -95,7 +94,6 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 	return res&(0xFFFFFFFF>>(32-data_size));
 #endif
 }
-
 void set_CF_sub(uint32_t dest, uint32_t src, size_t data_size){
     dest = sign_ext(dest&(0xFFFFFFFF>>(32-data_size)),data_size);
     src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
@@ -168,7 +166,6 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 	set_CF_sbb(dest,src,data_size);
 	set_OF_sub(res,dest,src,data_size);
 	return res & (0xFFFFFFFF>>(32-data_size));
-	return 0;
 #endif
 }
 
@@ -251,10 +248,14 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_and(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint32_t result;
+	result = src & dest;
+	set_ZF(result);
+	set_SF(result);
+	set_PF(result);
+	cpu.eflags.OF=0;
+	cpu.eflags.CF=0;
+	return result;
 #endif
 }
 
