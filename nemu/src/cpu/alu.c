@@ -96,15 +96,54 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 #endif
 }
 
+void set_CF_sub(uint32_t dest, uint32_t src, size_t data_size){
+    dest = sign_ext(dest&(0xFFFFFFFF>>(32-data_size)),data_size);
+    src = sign_ext(src&(0xFFFFFFFF>>(32-data_size)),data_size);
+    cpu.eflags.CF = (dest < src);
+    
+}
+void set_OF_sub(uint32_t result,uint32_t dest,uint32_t src,size_t data_size){
+    switch(data_size)
+    {
+        case 8:{
+            result = sign_ext(result & 0xFF,8);//截取低八位
+            src = sign_ext(src & 0xFF,8);
+            dest = sign_ext(dest & 0xFF,8);
+            break;
+        }
+        case 16:{
+            result = sign_ext(result & 0xFFFF,16);
+            src = sign_ext(src & 0xFFFF,16);
+            dest = sign_ext(dest & 0xFFFF,16);
+            break;
+        }
+        default:break;
+    }
+    if(sign(dest)!=sign(src))
+    {
+        if(sign(result)!=sign(dest))
+            cpu.eflags.OF = 1;
+        else
+            cpu.eflags.OF = 0;
+    }
+    else
+        cpu.eflags.OF = 0;
+}
 uint32_t alu_sub(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sub(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint32_t res=0;
+// 	src = sign_ext(src);
+// 	dest = sign_ext(dest);
+	res = dest - src;
+	set_PF(res);
+	set_SF(res,data_size);
+	set_ZF(res,data_size);
+	set_CF_sub(dest,src,data_size);
+	set_OF_sub();
+	return res & (0xFFFFFFFF>>(32-data_size));
 #endif
 }
 
