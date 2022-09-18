@@ -49,7 +49,6 @@ void set_OF_add(uint32_t result, uint32_t src, uint32_t dest,size_t data_size)
     }
     else
         cpu.eflags.OF == 0;//正负相加一定不会溢出
-    return 0;
 }
 void set_PF(uint32_t result)
 {
