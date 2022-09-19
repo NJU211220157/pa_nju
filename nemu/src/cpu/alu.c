@@ -212,7 +212,7 @@ uint32_t alu_div(uint64_t src, uint64_t dest, size_t data_size)
 	if(src == 0)
 	    return -1;
 	uint32_t res;
-	res = src / dest;
+	res = dest / src;
 	return res;
 #endif
 }
