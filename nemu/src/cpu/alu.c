@@ -349,25 +349,21 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_sar(src, dest, data_size);
 #else
 	uint32_t temp = src;
-	//uint32_t judge = (dest>>(data_size-1))&0x1;//获取符号位
-	dest = dest &(0xFFFFFFFF>>(32-data_size));
-// 	if(judge==1)
-// 	    dest = dest |(0xFFFFFFFF<<data_size);
+	dest = dest &(0xFFFFFFFF>>(32-data_size));//高位清0
+	uint32_t judge = (dest>>(data_size-1))&0x1;//获取符号位
 	while(temp!=0)//移动src位
 	{
-	    cpu.eflags.CF = dest &0x1;
-	    //judge = (dest>>(data_size-1))&0x1;//符号位与1
-	    //最后一位作为CF标志
-	    dest = (int32_t)dest/2;
-	   // dest = dest &(0xFFFFFFFF>>(32-data_size));
-	   // if(judge==1)
-	   //     dest = dest |(0xFFFFFFFF<<data_size);//保留低data_size位，高位置1
 	    temp--;
+	    cpu.eflags.CF = dest &0x1;
+	    dest = dest/2;//右移
+	    if(judge==1)//符号位为1
+	        dest = dest |(0xFFFFFFFF<<(data_size-1));//高位置1
+	    dest = dest &(0xFFFFFFFF>>(32-data_size));//高32-data_size位清0
 	}
 	set_PF(dest);
 	set_SF(dest,data_size);
 	set_ZF(dest,data_size);
-	return dest ;//高位清0
+	return dest ;
 #endif
 }
 
