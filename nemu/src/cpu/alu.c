@@ -178,12 +178,14 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 	uint64_t judge;
 	judge = res&(0xFFFFFFFFFFFFFFFF>>(64-2*data_size));
 	judge = judge>>data_size;
-	if(judge == 0)
-        cpu.eflags.CF=0;
+	if(judge ==0)
+	{
+	    cpu.eflags.CF=0;
 	    cpu.eflags.OF=0;
-    else
+	}
+	else
 	    cpu.eflags.CF=1;
-	    cpucpu.eflags.OF=1;
+	    cpu.eflags.OF=1;
 	retrun res;
 #endif
 }
