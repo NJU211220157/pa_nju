@@ -323,12 +323,13 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_shr(src, dest, data_size);
 #else
 	uint32_t temp = src;
+	dest = dest &(0xFFFFFFFF>>(32-data_size));
 	while(temp!=0)//移动src位
 	{
-	    cpu.eflags.CF = sign_ext(dest&(0xFFFFFFFF>>(32-data_size)),data_size)&0x1;
-	    //只取低data_size位
+	    cpu.eflags.CF = dest &0x1;
+	    //最后一位作为CF标志
 	    dest = dest/2;
-	    dest = dest&(0xFFFFFFFF>>(32-data_size));//保留低data_size位
+	    dest = dest&(0xFFFFFFFF>>(32-data_size));//保留低data_size位，高位清0
 	    temp--;
 	}
 	if(src==1)
