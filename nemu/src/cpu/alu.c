@@ -356,7 +356,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 	while(temp!=0)//移动src位
 	{
 	    cpu.eflags.CF = dest &0x1;
-	    judge = (dest>>(data_size-1))&0x1;//符号位与1
+	    //judge = (dest>>(data_size-1))&0x1;//符号位与1
 	    //最后一位作为CF标志
 	    dest = (int32_t)dest/2;
 	   // dest = dest &(0xFFFFFFFF>>(32-data_size));
