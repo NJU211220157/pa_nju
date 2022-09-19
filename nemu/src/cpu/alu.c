@@ -175,38 +175,15 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_mul(src, dest, data_size);
 #else
 	uint64_t res = (uint64_t) src*dest;
-	switch(data_size){
-	    case 8:
-	        uint64_t judge = res&(0xFFFFFFFFFFFFFFFF>>(64-2*data_size));
-	        judge = judge>>data_size;
-	        if(judge == 0)
-	            cpu.eflags.CF=0;
-	            cpu.eflags.OF=0;
-	        else
-	            cpu.eflags.CF=1;
-	            cpucpu.eflags.OF=1;
-	        break;
-	    case 16:
-	        uint64_t judge = res&(0xFFFFFFFFFFFFFFFF>>(64-2*data_size));
-	        judge = judge>>data_size;
-	        if(judge == 0)
-	            cpu.eflags.CF=0;
-	            cpu.eflags.OF=0;
-	        else
-	            cpu.eflags.CF=1;
-	            cpu.eflags.OF=1;
-	        break;
-	    case 32:
-    	    uint64_t judge = res&(0xFFFFFFFFFFFFFFFF>>(64-2*data_size));
-	        judge = judge>>data_size;
-	        if(judge == 0)
-	            cpu.eflags.CF=0;
-	            cpu.eflags.OF=0;
-	        else
-	            cpu.eflags.CF=1;
-	            cpucpu.eflags.OF=1;
-	        break;
-	}
+	uint64_t judge;
+	judge = res&(0xFFFFFFFFFFFFFFFF>>(64-2*data_size));
+	judge = judge>>data_size;
+	if(judge == 0)
+        cpu.eflags.CF=0;
+	    cpu.eflags.OF=0;
+    else
+	    cpu.eflags.CF=1;
+	    cpucpu.eflags.OF=1;
 	retrun res;
 #endif
 }
