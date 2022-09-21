@@ -177,6 +177,7 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 	uint64_t res = (uint64_t) src*dest;
 	uint64_t judge;
 	judge = res&(0xFFFFFFFFFFFFFFFF>>(64-2*data_size));
+	//截取有效字节中的高data_size位用来判断CF和OF
 	judge = judge>>data_size;
 	if(judge ==0)
 	{
