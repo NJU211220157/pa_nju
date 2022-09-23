@@ -27,7 +27,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sig_grs = sig_grs | sticky;
 			exp++;
 		}
-
 		if (exp >= 0xff)
 		{
 			/* TODO: assign the number to infinity */
@@ -47,7 +46,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		if (exp < 0)
 		{
 			/* TODO: assign the number to zero */
-			exp =0;
+			exp = 0;
 			sig_grs = 0;
 			overflow = true;
 		}
@@ -83,11 +82,12 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		    sig_grs += 1;
 		}
 		//判断是否需要右规
-		if((sig_grs>>23)>1){//23 非 26
-		    sig_grs=sig_grs>>1; exp++;
+		while((sig_grs>>23)>1){//23 非 26
+		    sig_grs=sig_grs>>1; 
+		    exp++;
 		}
 		if(exp>=0xff){
-		    sig_grs = 0;overflow=true;
+		    sig_grs = 0;
 		}
 	}
 
@@ -292,12 +292,14 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 		fa.exponent++;
 	if (fb.exponent == 0)
 		fb.exponent++;
-
+    //注意此处对非规格化数的处理;
+	
 	sig_res = sig_a * sig_b; // 24b * 24b
+	
 	uint32_t exp_res = 0;
 
 	/* TODO: exp_res = ? leave space for GRS bits. */
-    exp_res = fa.exponent + fb.exponent- 0x7F; // 1 1 --> -252  2-> -125
+    exp_res = fa.exponent + fb.exponent - 127 + 20 ; // 1 1 --> -252  2-> -125
 	return internal_normalize(f.sign, exp_res, sig_res);
 }
 
