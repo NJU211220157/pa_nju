@@ -164,15 +164,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 	uint32_t shift = 0;
 
 	/* TODO: shift = ? */
-	if(fb.exponent==0){
-	    shift = 0;//两个非规格数
-	}
-	else if(fb.exponent>0&&(fa.exponent==0)){//只有a是规格化
-	    shift = fb.exponent;
-	}
-	else{//两个都是规格化数
-	    shift = fb.exponent -fa.exponent;
-	}
+	shift = (fb.exponent == 0 ? fb.exponent + 1 : fb.exponent) - (fa.exponent == 0 ? fa.exponent + 1 : fa.exponent);
 
 	sig_a = (sig_a << 3); // guard, round, sticky
 	sig_b = (sig_b << 3);
