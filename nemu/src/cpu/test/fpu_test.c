@@ -183,10 +183,10 @@ void init_fpu_test()
 	n_zero.fraction = 0;
 	p_inf.sign = 0;
 	p_inf.exponent = 255;
-	p_inf.fraction = 0;
+	p_zero.fraction = 0;
 	n_inf.sign = 1;
 	n_inf.exponent = 255;
-	n_inf.fraction = 0;
+	n_zero.fraction = 0;
 	p_nan.sign = 0;
 	p_nan.exponent = 255;
 	p_nan.fraction = 0x400000;
