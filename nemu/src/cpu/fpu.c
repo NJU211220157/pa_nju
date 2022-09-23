@@ -293,6 +293,9 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 	if (fb.exponent == 0)
 		fb.exponent++;
     //注意此处对非规格化数的处理
+    sig_a = (sig_a << 3); // guard, round, sticky
+	sig_b = (sig_b << 3);
+	
 	sig_res = sig_a * sig_b; // 24b * 24b
 	
 	uint32_t exp_res = 0;
