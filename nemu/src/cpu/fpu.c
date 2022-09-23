@@ -22,7 +22,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		{
 
 			/* TODO: shift right, pay attention to sticky bit*/
-			sticky = sticky | (sig_grs&0x1);//获取sticky
+			sticky = sticky | (sig_grs & 0x1);//获取sticky
 			sig_grs=sig_grs>>1;
 			sig_grs = sig_grs | sticky;
 			exp++;
@@ -32,6 +32,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		{
 			/* TODO: assign the number to infinity */
 			sig_grs =0x0;//尾数为全0
+			exp = 0xff;
 			overflow = true;
 		}
 		if (exp == 0)
@@ -52,7 +53,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			overflow = true;
 		}
 	}
-	else if (((sig_grs >> (23 + 3)) == 0) && exp > 0)//0.101 但阶码非0
+	else if (((sig_grs >> (23 + 3)) == 0) && exp > 0)//0.101 1 但阶码非0
 	{
 		// normalize toward left
 		while (((sig_grs >> (23 + 3)) == 0) && exp > 0)
@@ -83,7 +84,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		    sig_grs += 1;
 		}
 		//判断是否需要右规
-		if((sig_grs>>26)>1){
+		if((sig_grs>>23)>1){//23 非 26
 		    sig_grs=sig_grs>>1; exp++;
 		}
 		if(exp>=0xff){
@@ -166,10 +167,10 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 	if(fb.exponent==0){
 	    shift = 0;//两个非规格数
 	}
-	else if(fb.exponent>0&&fa.exponent==0){
+	else if(fb.exponent>0&&(fa.exponent==0)){//只有a是规格化
 	    shift = fb.exponent;
 	}
-	else{
+	else{//两个都是规格化数
 	    shift = fb.exponent -fa.exponent;
 	}
 
