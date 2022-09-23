@@ -27,7 +27,6 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sig_grs = sig_grs | sticky;
 			exp++;
 		}
-
 		if (exp >= 0xff)
 		{
 			/* TODO: assign the number to infinity */
