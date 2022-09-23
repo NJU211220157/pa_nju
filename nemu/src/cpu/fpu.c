@@ -11,7 +11,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 
 	// normalization
 	bool overflow = false; // true if the result is INFINITY or 0 during normalize
-
+    uint32_t sticky = 0;
 	if ((sig_grs >> (23 + 3)) > 1 || exp < 0)
 	{
 		// normalize toward right
@@ -22,17 +22,16 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		{
 
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sticky = sticky | (sig_grs&0x1);//获取sticky
+			sig_grs=sig_grs>>1;
+			sig_grs = sig_grs | sticky;
+			exp++;
 		}
 
 		if (exp >= 0xff)
 		{
 			/* TODO: assign the number to infinity */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sig_grs =0x0;//尾数为全0
 			overflow = true;
 		}
 		if (exp == 0)
@@ -53,23 +52,20 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			overflow = true;
 		}
 	}
-	else if (((sig_grs >> (23 + 3)) == 0) && exp > 0)
+	else if (((sig_grs >> (23 + 3)) == 0) && exp > 0)//0.101 但阶码非0
 	{
 		// normalize toward left
 		while (((sig_grs >> (23 + 3)) == 0) && exp > 0)
 		{
-			/* TODO: shift left */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sig_grs=sig_grs<<1;exp--;
 		}
 		if (exp == 0)
 		{
 			// denormal
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sticky = sticky | (sig_grs&0x1);//获取sticky
+			sig_grs= sig_grs>>1;
+			sig_grs = sig_grs | sticky;
 		}
 	}
 	else if (exp == 0 && sig_grs >> (23 + 3) == 1)
@@ -78,12 +74,21 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		exp++;
 	}
 
-	if (!overflow)
+	if (!overflow)//进行舍入操作
 	{
 		/* TODO: round up and remove the GRS bits */
-		printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-		fflush(stdout);
-		assert(0);
+		uint32_t temp = sig_grs&0x7;//保留最后三位
+		sig_grs=sig_grs>>3;
+		if(temp>4 ||((temp==4)&&((sig_grs & 0x1)==1))){//需要进位
+		    sig_grs += 1;
+		}
+		//判断是否需要右规
+		if((sig_grs>>26)>1){
+		    sig_grs=sig_grs>>1; exp++;
+		}
+		if(exp>=0xff){
+		    sig_grs = 0;
+		}
 	}
 
 	FLOAT f;
@@ -158,10 +163,15 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 	uint32_t shift = 0;
 
 	/* TODO: shift = ? */
-	printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	assert(shift >= 0);
+	if(fb.exponent==0){
+	    shift = 0;//两个非规格数
+	}
+	else if(fb.exponent>0&&fa.exponent==0){
+	    shift = fb.exponent;
+	}
+	else{
+	    shift = fb.exponent -fa.exponent;
+	}
 
 	sig_a = (sig_a << 3); // guard, round, sticky
 	sig_b = (sig_b << 3);
