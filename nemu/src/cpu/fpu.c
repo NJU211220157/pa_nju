@@ -40,16 +40,15 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			// we have a denormal here, the exponent is 0, but means 2^-126,
 			// as a result, the significand should shift right once more
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease 2implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sticky = sticky | (sig_grs & 0x1);//获取sticky
+			sig_grs=sig_grs>>1;
+			sig_grs = sig_grs | sticky;
 		}
 		if (exp < 0)
 		{
 			/* TODO: assign the number to zero */
-			printf("\e[0;31mPlease 3implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			exp =0;
+			sig_grs = 0;
 			overflow = true;
 		}
 	}
@@ -289,7 +288,7 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 	if (fb.exponent != 0)
 		sig_b |= 0x800000; // the hidden 1
 
-	if (fa.exponent == 0)
+	if (fa.exponent == 0)//非规格化数？ -127-> -126
 		fa.exponent++;
 	if (fb.exponent == 0)
 		fb.exponent++;
@@ -298,9 +297,7 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 	uint32_t exp_res = 0;
 
 	/* TODO: exp_res = ? leave space for GRS bits. */
-	printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
+    exp_res = fa.exponent + fb.exponent- 0x7F; // 1 1 --> -252  2-> -125
 	return internal_normalize(f.sign, exp_res, sig_res);
 }
 
