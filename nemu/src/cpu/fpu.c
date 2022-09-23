@@ -87,7 +87,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		    sig_grs=sig_grs>>1; exp++;
 		}
 		if(exp>=0xff){
-		    sig_grs = 0;overflow=true;
+		    sig_grs = 0;
 		}
 	}
 
@@ -297,7 +297,7 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 	uint32_t exp_res = 0;
 
 	/* TODO: exp_res = ? leave space for GRS bits. */
-    exp_res = fa.exponent + fb.exponent- 0x7F; // 1 1 --> -252  2-> -125
+    exp_res = fa.exponent + fb.exponent- 0x7F-23; // 1 1 --> -252  2-> -125
 	return internal_normalize(f.sign, exp_res, sig_res);
 }
 
