@@ -292,12 +292,13 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 		fa.exponent++;
 	if (fb.exponent == 0)
 		fb.exponent++;
-
+    //注意此处对非规格化数的处理
 	sig_res = sig_a * sig_b; // 24b * 24b
+	
 	uint32_t exp_res = 0;
 
 	/* TODO: exp_res = ? leave space for GRS bits. */
-    exp_res = fa.exponent + fb.exponent - 0x7F - 0x17 ; // 1 1 --> -252  2-> -125
+    exp_res = fa.exponent + fb.exponent - 0x7F - 0x1A ; // 1 1 --> -252  2-> -125
 	return internal_normalize(f.sign, exp_res, sig_res);
 }
 
