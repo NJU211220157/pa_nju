@@ -78,12 +78,12 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		/* TODO: round up and remove the GRS bits */
 		uint32_t temp = sig_grs&0x7;//保留最后三位
 		sig_grs=sig_grs>>3;
-		if(temp>4 ||((temp==4)&&(sig_grs&0x1==1))){//需要进位
+		if(temp>4 ||((temp==4)&&((sig_grs & 0x1)==1))){//需要进位
 		    sig_grs += 1;
 		}
 		//判断是否需要右规
 		if((sig_grs>>26)>1){
-		    sig_grs=sig_grs>>1;exp-++;
+		    sig_grs=sig_grs>>1; exp++;
 		}
 		if(exp>=0xff){
 		    sig_grs = 0;
