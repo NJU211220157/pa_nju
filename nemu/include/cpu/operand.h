@@ -27,15 +27,16 @@ typedef struct
 	uint32_t index; // register
 	uint32_t scale; // 1, 2, 4, 8
 } MEM_ADDR;			// memory address details
+//0x11(%eax,%ebx,4);
 
 typedef struct
 {
 	int type;
-	uint32_t addr;
+	uint32_t addr;//地址的真值（机器数表示）
 	uint8_t sreg;
 	uint32_t val;
 	size_t data_size;
-	MEM_ADDR mem_addr;
+	MEM_ADDR mem_addr;//地址的计算公式
 } OPERAND;
 
 extern OPERAND opr_src, opr_dest;
