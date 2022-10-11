@@ -53,6 +53,7 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 		return len;                                                                                                                        \
 	}
 
+
 // macro for generating the implementation of an instruction with two operands and condition
 #define make_instr_impl_2op_cc(inst_name, src_type, dest_type, suffix, cc)                \
 	make_instr_func(concat7(concat(inst_name, cc), _, src_type, 2, dest_type, _, suffix)) \
