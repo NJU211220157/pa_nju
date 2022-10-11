@@ -13,7 +13,9 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 #define make_instr_func(name) int name(uint32_t eip, uint8_t opcode)
 
 // macro for generating the implementation of an instruction with one operand
+//inst_name can be 'mov','add','sub'
 #define make_instr_impl_1op(inst_name, src_type, suffix)                                                                        \
+
 	make_instr_func(concat5(inst_name, _, src_type, _, suffix))                                                                 \
 	{                                                                                                                           \
 		int len = 1;                                                                                                            \
