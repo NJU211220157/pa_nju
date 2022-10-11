@@ -13,7 +13,17 @@ make_instr_impl_2op(cmp,rm,r,v);
 make_instr_impl_2op(cmp,r,rm,b);
 make_instr_impl_2op(cmp,r,rm,v);
 make_instr_impl_2op(cmp,i,a,b);
-make_instr_impl_2op(cmp,i,a,v);
+make_instr_func(cmp_i2a_v){
+    OPERAND rm,imm;
+    
+    imm.data_size=rm.data_size=data_size;
+    int len=1;
+    len += modrm_rm(eip+1,&rm);
+    imm.type=OPR_IMM;
+    imm.type=SREG_CS;
+    imm.addr=eip+1;
+    int len=1;
+}
 
 // make_instr_func(cmp_rm2r_b)
 // {
