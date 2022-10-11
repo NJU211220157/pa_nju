@@ -3,12 +3,12 @@
 /*
 Put the declarations of `cmp' instructions here.
 */
-make_instr_func(cmp,rm,r,b);
-make_instr_func(cmp,rm,r,v);
-make_instr_func(cmp,r,rm,b);
-make_instr_func(cmp,r,rm,v);
-make_instr_func(cmp,i,a,b);
-make_instr_func(cmp,i,a,v);
+make_instr_func(cmp_rm2r_b);
+make_instr_func(cmp_rm2r_v);
+make_instr_func(cmp_r2rm_b);
+make_instr_func(cmp_r2rm_v);
+make_instr_func(cmp_i2a_b);
+make_instr_func(cmp_i2a_v);
 
 
 #endif
