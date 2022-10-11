@@ -6,7 +6,7 @@ static void instr_execute_2op(){
     operand_read(&opr_src);
     long res=opr_dest.val-opr_src.val;
     if(res==0){
-        cpu.eflags.ZF=0;
+        cpu.eflags.ZF=1;
     }
     cpu.eflags.SF=res>=0?0:1;
     operand_write(&opr_dest);
