@@ -14,16 +14,16 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 
 // macro for generating the implementation of an instruction with one operand
 
-#define make_instr_impl_1op(inst_name, src_type, suffix)                                                                        \          
-	make_instr_func(concat5(inst_name, _, src_type, _, suffix))                                                                 \
-	{                                                                                                                           \
-		int len = 1;                                                                                                            \
-		concat(decode_data_size_, suffix)                                                                                       \
-		concat3(decode_operand, _, src_type)                                                                                \
-		print_asm_1(#inst_name, opr_src.data_size == 8 ? "b" : (opr_src.data_size == 16 ? "w" : "l"), len, &opr_src); \
-		instr_execute_1op();                                                                                                    \
-		return len;                                                                                                             \
-	}
+#define make_instr_impl_1op(inst_name, src_type, suffix)                                                                        \
+ make_instr_func(concat5(inst_name, _, src_type, _, suffix))                                                                 \
+ {                                                                                                                           \
+  int len = 1;                                                                                                            \
+  concat(decode_data_size_, suffix)                                                                                       \
+  concat3(decode_operand, _, src_type)                                                                                \
+  print_asm_1(#inst_name, opr_src.data_size == 8 ? "b" : (opr_src.data_size == 16 ? "w" : "l"), len, &opr_src); \
+  instr_execute_1op();                                                                                                    \
+  return len;                                                                                                             \
+ }
 
 // macro for generating the implementation of an instruction with one operand and condition
 // for jcc and setcc, the opcode type are always fixed so it will not appear in the function name
