@@ -17,7 +17,6 @@ make_instr_impl_2op(cmp,i,rm,v);
 make_instr_impl_2op(cmp,i,a,b);
 make_instr_impl_2op(cmp,i,a,v);
 make_instr_impl_2op(cmp,i,rm,w);
-make_instr_impl_2op(cmp,i,rm,d);
 
 
 // make_instr_func(cmp_rm2r_b)
