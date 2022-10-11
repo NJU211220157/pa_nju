@@ -20,7 +20,8 @@ make_instr_impl_2op(cmp,r,rm,v);
 make_instr_impl_2op(cmp,i,a,b);
 make_instr_impl_2op(cmp,i,a,v);*/
 
-make_instr_func(cmp_rm2r_b){
+make_instr_func(cmp_rm2r_b)
+{
     OPERAND rm,imm;
     imm.data_size=rm.data_size=8;
     
@@ -39,3 +40,6 @@ make_instr_func(cmp_rm2r_b){
     
     return len+1;
 }
+
+
+
