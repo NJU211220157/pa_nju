@@ -5,6 +5,7 @@ Put the implementations of `push' instructions here.
 static void instr_execute_1op(){
     operand_read(&opr_src);
     cpu.gpr[4].val-=data_size/8;
+    
 }
 make_instr_impl_1op(push,r,v);
 // make_instr_func(push_r_v){
