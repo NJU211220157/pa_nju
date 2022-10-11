@@ -14,7 +14,7 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 
 // macro for generating the implementation of an instruction with one operand
 
-#define make_instr_impl_1op(inst_name, src_type, suffix)                                                                        \                           
+#define make_instr_impl_1op(inst_name, src_type, suffix)                                                                        \          
 	make_instr_func(concat5(inst_name, _, src_type, _, suffix))                                                                 \
 	{                                                                                                                           \
 		int len = 1;                                                                                                            \
