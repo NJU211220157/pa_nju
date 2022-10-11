@@ -1,5 +1,4 @@
 #include "cpu/instr.h"
-#include "cpu/alu.h"
 /*
 Put the implementations of `cmp' instructions here.
 */
