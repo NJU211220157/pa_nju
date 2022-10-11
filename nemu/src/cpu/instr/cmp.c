@@ -11,7 +11,6 @@ static void instr_execute_2op(){
     cpu.eflags.SF=res>=0?0:1;
     operand_write(&opr_dest);
 }
-make_instr_impl_2op(mov, r, rm, b)
 
 make_instr_impl_2op(cmp,rm,r,b);
 make_instr_impl_2op(cmp,rm,r,v);
