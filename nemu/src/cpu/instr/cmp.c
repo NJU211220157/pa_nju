@@ -1,15 +1,12 @@
 #include "cpu/instr.h"
+#include "cpu/alu.h"
 /*
 Put the implementations of `cmp' instructions here.
 */
 static void instr_execute_2op(){
     operand_read(&opr_src);
-    long res=opr_dest.val-opr_src.val;
-    if(res==0){
-        cpu.eflags.ZF=1;
-    }
-    cpu.eflags.SF=res>=0?0:1;
-    operand_write(&opr_dest);
+    operand_read(&opr_dest);
+    alu_sub(opr_src.val,opr_dest.val,8);
 }
 make_instr_impl_2op(cmp,rm,r,b);
 make_instr_impl_2op(cmp,rm,r,v);
