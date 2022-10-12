@@ -13,11 +13,11 @@ static void instr_execute_1op()
     uint32_t temp=cpu.eflags.CF;
     
     opr_dest.val=alu_add(opr_src.val,opr_dest.val,data_size);
-    
+    opr_dest.addr=opr_src.addr;
     
     cpu.eflags.CF=temp;
     
-    operand_write(&opr_src);
+    operand_write(&opr_dest);
 }
 make_instr_impl_1op(inc,rm,v);
 
