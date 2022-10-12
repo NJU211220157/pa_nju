@@ -15,7 +15,7 @@ static void instr_execute_1op()
     // opr_src.val=alu_add(opr_src.val,opr_dest.val,data_size);
     
     // cpu.eflags.CF=temp;
-    opr_src.val=alu_add(opr_src.val,1,data_size);
+    opr_src.val=alu_add(opr_src.val,sign_ext(1,data_size),data_size);
     
     operand_write(&opr_src);
 }
