@@ -21,5 +21,5 @@ make_instr_func(ret_near)
     
     cpu.gpr[4].val += data_size/8;
     
-    return 1;//应该返回0?
+    return 0;//应该返回0?
 }
