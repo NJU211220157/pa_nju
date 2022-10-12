@@ -6,7 +6,7 @@ static void instr_execute_1op()
 {
     operand_read(&opr_src);
     
-    opr_dest.type=opr_src.type;
+    //opr_dest.type=opr_src.type;
     opr_dest.addr=opr_src.addr;
     opr_dest.data_size=opr_src.data_size;
     opr_dest.val=opr_src.val + 1;
