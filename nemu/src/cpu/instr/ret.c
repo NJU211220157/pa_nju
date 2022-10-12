@@ -12,6 +12,12 @@ make_instr_func(ret_near)
     operand_read(&rm);
     
     cpu.eip=rm.val;
+    
+    if(data_size==16)
+    {
+        cpu.eip=cpu.eip&0x0000FFFF;
+    }
+    
     cpu.gpr[4].val +=data_size/8;
     
     return 1;

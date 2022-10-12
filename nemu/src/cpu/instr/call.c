@@ -26,6 +26,10 @@ make_instr_func(call_near){
     print_asm_1("jmp", "", 1 + data_size / 8, &rel);
 
     cpu.eip += offset;
+    if(data_size==16)
+    {
+        cpu.eip=cpu.eip&0x0000FFFF;
+    }
     
     return 1 + (data_size/8);
 }
