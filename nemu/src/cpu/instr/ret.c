@@ -11,7 +11,7 @@ make_instr_func(ret_near)
     rm.data_size=data_size;
     operand_read(&rm);
     
-    cpu.eip=0x30008;
+    cpu.eip=0x3000d;
     
     if(data_size==16)
     {
@@ -20,5 +20,5 @@ make_instr_func(ret_near)
     
     cpu.gpr[4].val += data_size/8;
     
-    return 1;
+    return 0;
 }
