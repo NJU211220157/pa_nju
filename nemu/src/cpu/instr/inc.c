@@ -6,8 +6,11 @@ static void instr_execute_1op()
 {
     operand_read(&opr_src);
     OPERAND rm;
+    rm.data_size=data_size;
+    rm.type=opr_src.type;
     rm.addr=opr_src.addr;
     rm.val=opr_src.val;
+    rm.val+=1;
     operand_write(&rm);
 }
 make_instr_impl_1op(inc,rm,v);
