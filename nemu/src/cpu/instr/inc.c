@@ -4,16 +4,7 @@ Put the implementations of `inc' instructions here.
 */
 static void instr_execute_1op()
 {
-    operand_read(&opr_src);
     
-    OPERAND rm;
-    
-    rm.type=opr_src.type;
-    //rm.addr=opr_src.addr;
-    rm.data_size=data_size;
-    rm.val=opr_src.val + 1;
-    
-    operand_write(&rm);
 }
 make_instr_impl_1op(inc,rm,v);
 
