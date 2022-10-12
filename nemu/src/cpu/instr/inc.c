@@ -7,7 +7,11 @@ static void instr_execute_1op()
     operand_read(&opr_src);
     operand_read(&opr_dest);
     opr_dest.val=1;
-    opr_src.val=alu_add(opr_src.val,opr_dest.val,data_size);
+    opr_dest.data_size=data_size;
+    opr_dest.type=opr_src.type;
+    uint32_t temp=cpu.eflags.CF;
+    opr_dest.val=alu_add(opr_src.val,opr_dest.val,data_size);
+    cpu.eflags.CF=temp;
     operand_write(&opr_src);
 }
 make_instr_impl_1op(inc,rm,v);
