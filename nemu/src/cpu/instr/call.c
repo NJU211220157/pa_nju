@@ -12,7 +12,7 @@ make_instr_func(call_near){
     rm.type=OPR_MEM;
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;
-    rm.val=cpu.eip;
+    rm.val=cpu.eip+1 + (data_size/8);
     
     operand_write(&rm);
     
@@ -32,7 +32,7 @@ make_instr_func(call_near){
         cpu.eip=cpu.eip&0x0000FFFF;
     }
     
-    return 0;
+    return 1 + (data_size/8);
 }
 
 
