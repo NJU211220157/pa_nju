@@ -14,6 +14,7 @@ static void instr_execute_1op(){
     opr_src.val=rm.val;
     operand_write(&opr_src);
     
-    cpu.gpr[4].val +=data_size/8;
+    cpu.gpr[4].val += data_size/8;
 }
+
 make_instr_impl_1op(pop,r,v);
