@@ -20,5 +20,5 @@ make_instr_func(ret_near)
     
     cpu.gpr[4].val += data_size/8;
     
-    return 1;
+    return 0;
 }
