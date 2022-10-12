@@ -6,10 +6,9 @@ static void instr_execute_1op()
 {
     operand_read(&opr_src);
     
-    uint32_t te=cpu.eflags.CF;
-    cpu.eflags.CF=te;
     
-    operand_write(&opr_src);
+    
+    operand_write(&opr_dest);
 }
 make_instr_impl_1op(inc,rm,v);
 
