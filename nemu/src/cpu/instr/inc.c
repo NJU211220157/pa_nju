@@ -7,6 +7,7 @@ static void instr_execute_1op()
     operand_read(&opr_src);
     OPERAND rm;
     rm.addr=opr_src.addr;
+    rm.val=opr_src.val;
     operand_write(&rm);
 }
 make_instr_impl_1op(inc,rm,v);
