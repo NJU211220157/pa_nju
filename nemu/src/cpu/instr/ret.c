@@ -12,7 +12,7 @@ make_instr_func(ret_near)
     operand_read(&rm);
     
     //cpu.eip=rm.val;
-    cpu.eip=rm.val;
+    cpu.eip=0x30008;
     
     if(data_size==16)
     {
@@ -21,5 +21,5 @@ make_instr_func(ret_near)
     
     cpu.gpr[4].val += data_size/8;
     
-    return 0;//应该返回0?
+    return 1;//应该返回0?
 }
