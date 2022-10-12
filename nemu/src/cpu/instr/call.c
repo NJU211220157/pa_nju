@@ -32,7 +32,7 @@ make_instr_func(call_near){
         cpu.eip=cpu.eip&0x0000FFFF;
     }
     
-    return 1 + (data_size/8);
+    return 0;
 }
 
 
