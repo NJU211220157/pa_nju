@@ -3,6 +3,16 @@
 Put the implementations of `call' instructions here.
 */
 make_instr_func(call_near){
+    
+    OPERAND rm;
+    
+    rm.type=OPR_MEM;
+    rm.addr=cpu.gpr[4].val;
+    rm.data_size=data_size;
+    rm.val=cpu.eip;
+    
+    operand_write(&rm);
+    
     OPERAND rel;
     rel.type=OPR_IMM;
     rel.addr=eip+1;
