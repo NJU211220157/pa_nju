@@ -3,6 +3,8 @@
 Put the implementations of `lea' instructions here.
 */
 
+//如何区分不同的data_size?
+
 make_instr_func(lea)
 {
     OPERAND rm,r;
