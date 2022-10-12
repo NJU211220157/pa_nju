@@ -225,49 +225,11 @@ static inline bool inv_cc();
 #define condition_c \
 	cpu.eflags.CF
 
-
-// possible condition: e, a, ae, b, be, o, p, s , ne, na, no, np, ns, g, ge, l, le, ecxz
 static inline bool inv_cc()
 {
 	printf("Please implement cc condition in instr_helper.h\n");
-// 	switch(#cc)
-// 	{
-// 	    case "e":{
-// 	        if(cpu.eflags.ZF==1)
-// 	            return true;
-// 	        else
-// 	            return false;
-// 	        break;
-// 	    }
-// 	    case "a":{
-// 	        if(cpu.eflags.CF==0&&cpu.eflags.ZF!=0)
-// 	            return true;
-// 	        else
-// 	            return false;
-// 	        break;
-// 	    }
-// 	    case "ae":{
-// 	        if(cpu.eflags.CF==0)//够减
-// 	            return true;
-// 	        else
-// 	            return false;
-// 	        break;
-// 	    }
-// 	    case "b":{
-// 	        if(cpu.eflags.CF==1)
-// 	            return true;
-// 	        else
-// 	            return false;
-// 	        break;
-// 	    }
-// 	    case "be":{
-// 	        if(cpu.eflags.ZF==1||cpu.eflags.CF==1)
-// 	            return true;
-// 	        else
-// 	            return false;
-// 	        break;
-// 	    }
-// 	}
+	fflush(stdout);
+	assert(0);
 	return false;
 }
 
