@@ -13,7 +13,7 @@ static void instr_execute_1op()
     uint32_t temp=cpu.eflags.CF;
     
     opr_dest.val=alu_add(opr_src.val,opr_dest.val,data_size);
-    opr_src.val=opr_dest.val;
+    
     
     cpu.eflags.CF=temp;
     
