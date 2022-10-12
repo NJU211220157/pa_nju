@@ -5,13 +5,9 @@ Put the implementations of `inc' instructions here.
 static void instr_execute_1op()
 {
     operand_read(&opr_src);
-    OPERAND rm;
-    rm.data_size=data_size;
-    rm.type=OPR_REG;
-    rm.addr=opr_src.addr;
-    rm.val=opr_src.val;
-    rm.val+=1;
-    operand_write(&rm);
+    uint32_t temp =alu_add(opr_src.val,1,data_size);
+    opr_src.val=temp;
+    operand_write(&opr_src);
 }
 make_instr_impl_1op(inc,rm,v);
 
