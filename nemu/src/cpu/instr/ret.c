@@ -18,7 +18,7 @@ make_instr_func(ret_near)
         cpu.eip=cpu.eip&0x0000FFFF;
     }
     
-    cpu.gpr[4].val +=data_size/8;
+    cpu.gpr[4].val += data_size/8;
     
     return 1;
 }
