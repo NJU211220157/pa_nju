@@ -7,7 +7,9 @@ static void instr_execute_1op()
 {
     operand_read(&opr_src);
     uint32_t temp=cpu.eflags.CF;
-    opr_src.val = alu_add(opr_src.val,1,data_size);
+    OPREAND t;
+    t.val=0x1;
+    opr_src.val = alu_add(opr_src.val,t.val,data_size);
     cpu.eflags.CF = temp;
     operand_write(&opr_src);
 }
