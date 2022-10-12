@@ -12,7 +12,7 @@ make_instr_func(ret_near)
     operand_read(&rm);
     
     //cpu.eip=rm.val;
-    cpu.eip=0x3000d;
+    cpu.eip=rm.val;
     
     if(data_size==16)
     {
