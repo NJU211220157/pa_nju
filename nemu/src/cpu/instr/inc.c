@@ -5,7 +5,7 @@ Put the implementations of `inc' instructions here.
 static void instr_execute_1op()
 {
     operand_read(&opr_src);
-    uint32_t temp =alu_add(opr_src.val,1,data_size);
+    uint32_t temp = 2;
     opr_src.val=temp;
     operand_write(&opr_src);
 }
