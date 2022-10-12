@@ -3,16 +3,16 @@
 Put the implementations of `inc' instructions here.
 */
 
-static void instr_execute_1op()
+make_instr_func(inc_rm_v)
 {
-    operand_read(&opr_src);
-    uint32_t temp=cpu.eflags.CF;
-    OPERAND t;
-    t.val=0x1;
-    opr_src.val = alu_add(opr_src.val,t.val,data_size);
-    cpu.eflags.CF = temp;
-    operand_write(&opr_src);
+    OPERAND rm;
+    rm.data_size=data_size;
+    int len=1;
+    len += modrm(eip+1,&rm);//寻址
+    operand_read(&rm);
+    
+    rm.val+=1;
+    operand_write(&rm);
+    
+    return len+1;
 }
-
-
-make_instr_impl_1op(inc,rm,v);
