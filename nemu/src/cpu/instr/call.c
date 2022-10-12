@@ -4,8 +4,10 @@ Put the implementations of `call' instructions here.
 */
 make_instr_func(call_near){
     
-    OPERAND rm;
     
+    //push eip;
+    OPERAND rm;
+    cpu.gpr[4].val-=data_size/8;
     rm.type=OPR_MEM;
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;
