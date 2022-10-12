@@ -14,5 +14,5 @@ make_instr_func(inc_rm_v)
     rm.val+=1;
     operand_write(&rm);
     
-    return len+1;
+    return len;
 }
