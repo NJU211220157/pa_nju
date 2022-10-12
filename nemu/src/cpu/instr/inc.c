@@ -6,8 +6,8 @@ static void instr_execute_1op()
 {
     operand_read(&opr_src);
     OPERAND rm;
-    rm.data_size=data_size;
-    rm.type=OPR_MEM;
+    //rm.data_size=data_size;
+    //rm.type=OPR_MEM;
     rm.addr=opr_src.addr;
     rm.val=opr_src.val;
     rm.val+=1;
