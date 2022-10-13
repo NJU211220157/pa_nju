@@ -10,8 +10,11 @@ static void instr_execute_1op()
     rm.type=opr_src.type;
     rm.val=opr_src.val;
     
+    uint32_t t=cpu.eflags.CF;
+    
     rm.val=alu_add(rm.val,sign_ext(1,data_size),data_size);
-    cpu.eflags.CF=0;
+    
+    cpu.eflags.CF=t;
     
     rm.addr=opr_src.addr;
     rm.data_size=data_size;
