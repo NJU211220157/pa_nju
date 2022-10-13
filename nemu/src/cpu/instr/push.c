@@ -17,6 +17,7 @@ static void instr_execute_1op(){
     
 }
 make_instr_impl_1op(push,r,v);
+make_instr_impl_1op(push,rm,v);
 // make_instr_func(push_r_v){
 //     uint8_t regIdx=opcode&07;//获取寄存器编号
 //     cpu.gpr[4].val-=data_size/8;
