@@ -30,4 +30,6 @@ make_instr_func(leave)
     operand_write(&rbp);
     
     cpu.gpr[4].val += data_size/8;
+    
+    return 1;
 }
