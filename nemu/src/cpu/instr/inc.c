@@ -11,14 +11,14 @@ static void instr_execute_1op()
     rm.val=opr_src.val;
     
     uint32_t t=cpu.eflags.CF;
+    rm.data_size=data_size;
     
-    rm.val=alu_add(rm.val,sign_ext(1,data_size),data_size);
+    rm.val=alu_add(rm.val,sign_ext(1,data_size),data_size);//+=1
     
     cpu.eflags.CF=t;//不改变CF
     
     rm.addr=opr_src.addr;
-    rm.data_size=data_size;
-    
+  
     operand_write(&rm);
     //operand_write(&opr_dest);
 }
