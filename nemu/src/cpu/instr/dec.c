@@ -9,6 +9,7 @@ static void instr_execute_1op()
     
     //uint32_t temp=cpu.eflags.CF;
     //opr_src.val=alu_sub(opr_src.val,0x1,data_size);
+    opr_src.val-=1;
     //cpu.eflags.CF =temp;
     
     operand_write(&opr_src);
