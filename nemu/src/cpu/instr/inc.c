@@ -10,6 +10,8 @@ static void instr_execute_1op()
     rm.type=opr_src.type;
     rm.val=opr_src.val;
     rm.val+=7/4;
+    
+    
 
     
     rm.addr=opr_src.addr;
