@@ -8,12 +8,12 @@ make_instr_func(leave)
     OPERAND rbp,rsp;
     
     rbp.type=OPR_REG;
-    rbp.addr=0x101;
+    rbp.addr=5;
     rbp.data_size=data_size;
     operand_read(&rbp);
     
     rsp.type=OPR_REG;
-    rsp.addr=0x100;
+    rsp.addr=4;
     rsp.data_size=data_size;
     rsp.val=rbp.val;
     operand_write(&rsp);
