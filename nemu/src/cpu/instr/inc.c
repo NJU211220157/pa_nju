@@ -4,11 +4,15 @@ Put the implementations of `inc' instructions here.
 */
 static void instr_execute_1op()
 {
-    operand_read(&opr_dest);
+    operand_read(&opr_src);
     
-    opr_dest.val += 1;
+    OPERAND rm;
+    rm.type=opr_src.type;
+    rm.val=opr_src.val;
+    rm.addr=opr_src.add;
+    rm.data_size=data_size;
     
-    operand_write(&opr_dest);
+    //operand_write(&opr_dest);
 }
 
 
