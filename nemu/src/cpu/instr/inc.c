@@ -13,7 +13,8 @@ static void instr_execute_1op()
     uint32_t t=cpu.eflags.CF;
     rm.data_size=data_size;
     
-    rm.val=alu_add(rm.val,sign_ext(1,data_size),data_size);//+=1
+    //mention!加的是0！
+    rm.val=alu_add(rm.val,sign_ext(0,data_size),data_size);//
     
     cpu.eflags.CF=t;//不改变CF
     
