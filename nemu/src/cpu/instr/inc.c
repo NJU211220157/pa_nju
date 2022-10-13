@@ -37,8 +37,11 @@ make_instr_func(inc_rm_v)
     len += modrm_rm(eip+1,&rm);//寻址
     
     operand_read(&rm);
+    
     rm.val=alu_add(rm.val,0x1,data_size);
+    
     operand_write(&rm);
+    
     
     return len;
 }
