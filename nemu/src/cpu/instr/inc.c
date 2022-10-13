@@ -21,7 +21,7 @@ static void instr_execute_1op()
     
     rm.addr=opr_src.addr;
   
-    operand_write(&rm);
+    //operand_write(&rm);
     //operand_write(&opr_dest);
 }
 
