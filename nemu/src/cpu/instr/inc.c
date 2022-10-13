@@ -9,9 +9,10 @@ static void instr_execute_1op()
     OPERAND rm;
     rm.type=opr_src.type;
     rm.val=opr_src.val;
-    rm.addr=opr_src.add;
+    rm.addr=opr_src.addr;
     rm.data_size=data_size;
     
+    operand_write(&rm);
     //operand_write(&opr_dest);
 }
 
