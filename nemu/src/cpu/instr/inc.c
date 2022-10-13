@@ -14,7 +14,7 @@ static void instr_execute_1op()
     
     rm.val=alu_add(rm.val,sign_ext(1,data_size),data_size);
     
-    cpu.eflags.CF=t;
+    cpu.eflags.CF=t;//不改变CF
     
     rm.addr=opr_src.addr;
     rm.data_size=data_size;
