@@ -9,7 +9,7 @@ static void instr_execute_1op()
     OPERAND rm;
     rm.type=opr_src.type;
     rm.val=opr_src.val;
-    rm.val--;
+    rm.val=alu_add(rm.val,0x1,data_size);
     rm.addr=opr_src.addr;
     rm.data_size=data_size;
     
