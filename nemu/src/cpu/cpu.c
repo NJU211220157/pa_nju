@@ -63,7 +63,7 @@ void exec(uint32_t n)
 	{
 		if(!is_nemu_hlt)
 		{
-		    //printf("eip=%x\n",cpu.eip);
+		    printf("eip=%x\n",cpu.eip);
 		    printf("eax = %x\n", cpu.gpr[0].val);
 			instr_len = exec_inst();
 			cpu.eip += instr_len;
