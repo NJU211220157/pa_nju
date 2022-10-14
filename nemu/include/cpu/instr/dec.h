@@ -3,6 +3,6 @@
 /*
 Put the declarations of `dec' instructions here.
 */
-make_instr_func(dec_rm_v);
+make_instr_func(dec_rm_bv);
 make_instr_func(dec_r_v);
 #endif
