@@ -12,7 +12,7 @@ static void instr_execute_1op(){
     rm.data_size=data_size;
     
     if(opr_src.type==OPR_IMM&&opr_src.data_size==8){
-        rm.val=sign_ext(opr_src.val,data_size);
+        rm.val=sign_ext(opr_src.val,opr_src.data_size);
     }
     else{
         rm.val=opr_src.val;
