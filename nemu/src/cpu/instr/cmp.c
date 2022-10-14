@@ -14,6 +14,7 @@ static void instr_execute_2op(){
         alu_sub(opr_src.val,opr_dest.val,opr_dest.data_size);
     }
     if(opr_src.val==0xffffff80&&opr_dest.val==0xffffff80){
+        printf("what");
         cpu.eflags.ZF=1;
     }
 }
