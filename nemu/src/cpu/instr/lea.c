@@ -14,8 +14,12 @@ make_instr_func(lea)
     int len=1;
     len += modrm_r_rm(eip+1,&r,&rm);
     
-    r.val=rm.addr;
-    
+    if(r.data_size==16){
+        r.val=rm.addr&0xFFFF;
+    }
+    else{
+        r.val=rm.addr;
+    }
     operand_write(&r);
     
     return len;
