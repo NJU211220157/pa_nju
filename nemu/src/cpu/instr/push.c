@@ -11,7 +11,7 @@ static void instr_execute_1op(){
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;
     
-    if(opr_src.type=OPR_IMM&&opr_src.data_size==8){
+    if(opr_src.type==OPR_IMM&&opr_src.data_size==8){
         rm.val=sign_ext(opr_src.val,data_size);
     }
     else{
