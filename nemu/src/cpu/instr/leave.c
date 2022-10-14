@@ -18,6 +18,14 @@ make_instr_func(leave)
     rsp.val=rbp.val;
     operand_write(&rsp);
     
+    OPERAND rm;
+    rm.type=OPR_MEM;
+    rm.data_size=data_size;
+    rm.addr=rsp.val;
+    operand_read(&rm);
+    rbp.val=rm.val;
+    operand_write(&rbp);
+    
     cpu.gpr[4].val += data_size/8;
     
     return 1;
