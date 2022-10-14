@@ -23,6 +23,7 @@ make_instr_func(leave)
     rm.data_size=data_size;
     rm.addr=rsp.val;
     operand_read(&rm);
+    
     rbp.val=rm.val;
     operand_write(&rbp);
     
