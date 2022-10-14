@@ -18,17 +18,17 @@ make_instr_func(leave)
     rsp.val=rbp.val;
     operand_write(&rsp);
     
-    /*OPERAND rm;
+    OPERAND rm;
     rm.type=OPR_MEM;
     rm.data_size=data_size;
     rm.addr=rsp.val;
     //读取栈顶的值
-    operand_read(&rm);*/
+    operand_read(&rm);
     
     
-    /*rbp.val=rm.val;
+    rbp.val=rm.val;
     
-    operand_write(&rbp);*/
+    operand_write(&rbp);
     
     cpu.gpr[4].val += data_size/8;
     
