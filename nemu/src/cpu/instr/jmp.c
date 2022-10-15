@@ -29,10 +29,12 @@ make_instr_func(jmp_short)
 
         operand_read(&rel);
         
+        
+        int offset = sign_ext(rel.val, rel.data_size);
         // thank Ting Xu from CS'17 for finding this bug
         print_asm_1("jmp", "", 2, &rel);
 
-        cpu.eip += rel.val;
+        cpu.eip += offset;
 
         return 2;
 }
