@@ -39,6 +39,47 @@ make_instr_func(jmp_short)
         return 2;
 }
 
+make_instr_func(jmp_near_indirect)
+{
+    
+        OPREAND rm;
+        rm.type=OPR_MEM;
+        rm.data_size=data_size;
+        int len=1;
+        len += modrm_rm(eip+1,&rm);
+        operand_read(&rm);
+
+        int offset = sign_ext(rm.val, rm.data_size);
+        // thank Ting Xu from CS'17 for finding this bug
+        print_asm_1("jmp", "", 1 + data_size / 8, &rel);
+
+        cpu.eip += offset;
+
+        return len;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
