@@ -12,7 +12,7 @@ make_instr_func(lea)
     r.data_size=rm.data_size=data_size;
     
     int len=1;
-    len += modrm_r_rm(eip+1,&r,&rm);
+    len += modrm_r_rm(eip+1,&r,&rm);//读取 r和rm的地址
     
     if(r.data_size==16){
         r.val=rm.addr&0xFFFF;
@@ -20,6 +20,7 @@ make_instr_func(lea)
     else{
         r.val=rm.addr;
     }
+    
     operand_write(&r);
     
     return len;
