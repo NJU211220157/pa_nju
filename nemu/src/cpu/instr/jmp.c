@@ -42,7 +42,7 @@ make_instr_func(jmp_short)
 make_instr_func(jmp_near_indirect)
 {
     
-        OPREAND rm;
+        OPERAND rm;
         rm.type=OPR_MEM;
         rm.data_size=data_size;
         int len=1;
