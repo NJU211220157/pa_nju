@@ -50,7 +50,7 @@ make_instr_func(jmp_near_indirect)
         len += modrm_rm(eip+1,&rm);
         operand_read(&rm);
 
-        int offset = sign_ext(rm.val, rm.data_size);
+        //int offset = sign_ext(rm.val, rm.data_size);
         // thank Ting Xu from CS'17 for finding this bug
         print_asm_1("jmp", "", 1 + data_size / 8, &rm);
 
