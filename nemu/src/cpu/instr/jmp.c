@@ -53,7 +53,7 @@ make_instr_func(jmp_near_indirect)
         // thank Ting Xu from CS'17 for finding this bug
         print_asm_1("jmp", "", 1 + data_size / 8, &rm);
 
-        cpu.eip += offset;
+        cpu.eip = offset;
 
         return len;
     
