@@ -29,7 +29,7 @@ make_instr_func(ret_near_imm16)
     OPERAND imm;
     
     imm.type=OPR_IMM;
-    imm.type=SREG_CS;
+    //imm.type=SREG_CS;
     imm.addr=eip+1;
     imm.data_size=16;
     operand_read(&imm);
@@ -42,10 +42,10 @@ make_instr_func(ret_near_imm16)
     operand_read(&rm);
     
     cpu.eip=rm.val;
-    // if(data_size==16)
-    // {
-    //     cpu.eip=cpu.eip&0x0000FFFF;
-    // }
+    if(data_size==16)
+    {
+        cpu.eip=cpu.eip&0x0000FFFF;
+    }
     cpu.gpr[4].val += data_size/8;
     cpu.gpr[4].val += imm.val;
     //cpu.gpr[4].val += sign_ext(imm.val,16);
