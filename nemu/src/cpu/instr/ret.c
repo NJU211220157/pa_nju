@@ -29,7 +29,7 @@ make_instr_func(ret_near_imm16)
     OPERAND imm;
     
     imm.type=OPR_IMM;
-    imm.sreg=SREG_CS;//注释掉这句话
+    imm.sreg=SREG_CS;
     imm.addr=eip+1;
     imm.data_size=16;
     operand_read(&imm);
