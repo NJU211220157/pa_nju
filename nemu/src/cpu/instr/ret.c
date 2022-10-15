@@ -15,7 +15,7 @@ make_instr_func(ret_near)
     
     if(data_size==16)
     {
-        cpu.eip=cpu.eip&0x0000FFFF;
+        cpu.eip=cpu.eip&0x0000FFFF;//只保留低16位
     }
     
     cpu.gpr[4].val += data_size/8;
@@ -25,8 +25,16 @@ make_instr_func(ret_near)
 
 make_instr_func(ret_near_imm16)
 {
-    OPERAND rm;
     
+    OPERAND imm;
+    imm.type=OPR_IMM;
+    imm.type=SREG_CS;
+    imm.addr=eip+1;
+    imm.data_size=16;
+    operand_read(&imm);
+    
+    OPERAND rm;
+
     rm.type=OPR_MEM;
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;
@@ -39,16 +47,17 @@ make_instr_func(ret_near_imm16)
     }
     cpu.gpr[4].val += data_size/8;
     
-    OPERAND imm;
-    imm.type=OPR_IMM;
-    imm.type=SREG_CS;
-    imm.addr=eip+1;
-    imm.data_size=16;
-    operand_read(&imm);
     cpu.gpr[4].val += imm.val;
     
     return 0;
 }
+
+
+
+
+
+
+
 
 
 
