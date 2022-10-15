@@ -26,12 +26,12 @@ make_instr_func(ret_near)
 make_instr_func(ret_near_imm16)
 {
     
-    OPERAND imm;
+    /*OPERAND imm;
     imm.type=OPR_IMM;
     imm.type=SREG_CS;
     imm.addr=eip+1;
-    imm.data_size=8;
-    operand_read(&imm);
+    imm.data_size=16;
+    operand_read(&imm);*/
     
     OPERAND rm;
 
@@ -47,7 +47,7 @@ make_instr_func(ret_near_imm16)
     }
     cpu.gpr[4].val += data_size/8;
     
-    cpu.gpr[4].val += imm.val;
+    //cpu.gpr[4].val += imm.val;
     
     return 0;
 }
