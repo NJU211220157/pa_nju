@@ -70,7 +70,7 @@ make_instr_func(call_near_indirect)
         cpu.eip=cpu.eip&0x0000FFFF;
     }
     
-    return len;
+    return 0;
     
 }
 
