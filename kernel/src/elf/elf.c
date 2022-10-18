@@ -45,7 +45,7 @@ uint32_t loader()
 	        {
 		        buf[i] = 0;
 	        }
-            ide_write(buf, ph->p_vaddr+ph->file_sz, ph->p_memsz-ph->p_filesz);
+            ide_write(buf, ph->p_vaddr+ph->p_filesz, ph->p_memsz-ph->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
