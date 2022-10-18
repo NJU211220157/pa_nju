@@ -41,7 +41,7 @@ uint32_t loader()
             uint8_t buf[4096];
             ide_read(buf, (void *)elf  + ph->p_offset, ph->p_filesz);
             ide_write(buf, ph->p_vaddr, ph->p_filesz);
-            for (i = 0; i < ph->p_memsz-ph->p_filesz; i++)
+            for (int i = 0; i < ph->p_memsz-ph->p_filesz; i++)
 	        {
 		        buf[i] = 0;
 	        }
