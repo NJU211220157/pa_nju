@@ -39,8 +39,8 @@ uint32_t loader()
 /* TODO: copy the segment from the ELF file to its proper memory area */
 //如何将数据读取到内存当中？
             Elf32_Addr src_mem_addr=ph->p_vaddr;
-            Elf32_Addr src_file_addr=(void *)elf + ph->p_offest;//从此处开始读取目标文件中的数据
-            Elf32_Addr dest_file_addr = src_file_addr + 8*ph->file_sz;
+            Elf32_Addr src_file_addr=(void *)elf + ph->p_offset;//从此处开始读取目标文件中的数据
+            Elf32_Addr dest_file_addr = src_file_addr + 8*ph->p_filesz;
             
             uint32_t count=ph->p_filesz;//总共读这么读写这么多字节
             
