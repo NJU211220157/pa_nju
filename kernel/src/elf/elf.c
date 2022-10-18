@@ -39,7 +39,7 @@ uint32_t loader()
 		    panic("please!");
 /* TODO: copy the segment from the ELF file to its proper memory area */
             uint8_t buf[4096];
-            ide_read(buf, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz);
+            ide_read(buf, (void *)elf  + ph->p_offset, ph->p_filesz);
             ide_write(buf, ph->p_vaddr, ph->p_filesz);
             for (i = 0; i < ph->p_memsz-ph->p_filesz; i++)
 	        {
