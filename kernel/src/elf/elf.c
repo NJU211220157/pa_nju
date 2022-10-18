@@ -1,7 +1,5 @@
 #include "common.h"
 #include "memory.h"
-#include "memory/memory.h"
-#include <memory.h>
 #include "string.h"
 
 #include <elf.h>
@@ -23,7 +21,7 @@ uint32_t loader()
 
 #ifdef HAS_DEVICE_IDE
 	uint8_t buf[4096];
-	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
+	//ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 	elf = (void *)buf;
 	Log("ELF loading from hard disk.");
 #else
@@ -40,18 +38,7 @@ uint32_t loader()
 		{
 /* TODO: copy the segment from the ELF file to its proper memory area */
 //如何将数据读取到内存当中？
-            Elf32_Addr src_mem_addr=ph->p_vaddr;
-            Elf32_Addr src_file_addr=(void *)elf + ph->p_offset;//从此处开始读取目标文件中的数据
-            Elf32_Addr dest_file_addr = src_file_addr + 8*ph->p_filesz;
             
-            uint32_t count=ph->p_filesz;//总共读这么读写这么多字节
-            
-            while(src_file_addr<dest_file_addr)
-            {
-                hw_mem_write(src_mem_addr, 1, (*src_file_addr));
-                src_mem_addr++;
-                src_file_addr++;
-            }
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
             hw_mem_write(src_mem_addr, 8*(ph->p_memsz-count), 0);
 #ifdef IA32_PAGE
