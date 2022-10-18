@@ -37,10 +37,8 @@ uint32_t loader()
 		if (ph->p_type == PT_LOAD)
 		{
 /* TODO: copy the segment from the ELF file to its proper memory area */
-//如何将数据读取到内存当中？
             
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
-            hw_mem_write(src_mem_addr, 8*(ph->p_memsz-count), 0);
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
 			extern uint32_t brk;
