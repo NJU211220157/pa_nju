@@ -23,6 +23,6 @@
 #define make_pde(addr) ((((uint32_t)(addr)) & 0xfffff000) | 0x7)
 #define make_pte(addr) ((((uint32_t)(addr)) & 0xfffff000) | 0x7)
 
-uint32_t mm_malloc(uint32_t, int* len);
+uint32_t mm_malloc(uint32_t, int len);
 
 #endif
