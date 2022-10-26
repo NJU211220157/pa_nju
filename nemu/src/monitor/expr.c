@@ -130,6 +130,8 @@ static bool make_token(char *e)
 	return true;
 }
 
+uint32_t check_parentheses(uint32_t p,uint32_t q);
+
 uint32_t eval(uint32_t p,uint32_t q){
     if(p > q){
         return -1;
