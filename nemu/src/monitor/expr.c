@@ -100,7 +100,7 @@ static bool make_token(char *e)
 
 				switch (rules[i].token_type)
 				{
-    				case 0:{//空格
+    				/*case 0:{//空格
                         break;    				    
     				}
                     case NUM:{// NUM
@@ -110,7 +110,7 @@ static bool make_token(char *e)
                         }
                         nr_token++;
                         break;
-                    }
+                    }*/
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
