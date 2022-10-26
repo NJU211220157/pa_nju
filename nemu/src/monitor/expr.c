@@ -31,8 +31,8 @@ static struct rule
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-    {" *", NOTYPE},
 	{" +", NOTYPE}, // white space 一个或者多个空格
+	{"\\+",'+'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
