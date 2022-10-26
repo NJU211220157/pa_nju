@@ -149,8 +149,6 @@ uint32_t eval(uint32_t p,uint32_t q){
         uint32_t op=0;
         char op_type='0';
         
-        printf("p= %u ,q = %u ",&p,&q);
-        
         uint32_t src=p,end=q;
         uint32_t left_parentheses=0;
         
@@ -234,6 +232,8 @@ uint32_t expr(char *e, bool *success)
 	}
 
     *success = true;
+    
+    printf("nr_token = %d ",&nr_token);
     
     uint32_t ans = eval(0,nr_token-1);
     
