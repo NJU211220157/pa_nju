@@ -21,6 +21,9 @@ make_instr_func(lea)
         r.val=rm.addr;
     }
     
+    
+    //print_asm_2("jmp", "", 1 + 2*(data_size / 8), &r,&rm);
+    
     operand_write(&r);
     
     return len;

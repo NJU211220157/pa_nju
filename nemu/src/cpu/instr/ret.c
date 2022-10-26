@@ -11,12 +11,16 @@ make_instr_func(ret_near)
     rm.data_size=data_size;
     operand_read(&rm);
     
+    
+    //print_asm_1("ret", "", 1, &rm);
+    
     cpu.eip=rm.val;
     
     if(data_size==16)
     {
         cpu.eip=cpu.eip&0x0000FFFF;//只保留低16位
     }
+    
     
     cpu.gpr[4].val += data_size/8;
     
@@ -41,11 +45,17 @@ make_instr_func(ret_near_imm16)
     rm.data_size=data_size;
     operand_read(&rm);
     
+    //print_asm_1("ret", "", 1 + data_size / 8, &rm);
+    
     cpu.eip=rm.val;
+    
     if(data_size==16)
     {
         cpu.eip=cpu.eip&0x0000FFFF;
     }
+    
+
+    
     cpu.gpr[4].val += data_size/8;
     cpu.gpr[4].val += imm.val;
     //cpu.gpr[4].val += sign_ext(imm.val,16);
