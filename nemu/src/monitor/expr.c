@@ -220,7 +220,7 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
         }
         p++;
     }*/
-    return 0;
+    return 1;
 }
 
 uint32_t expr(char *e, bool *success)
