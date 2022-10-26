@@ -198,8 +198,10 @@ uint32_t eval(uint32_t p,uint32_t q){
     return 0;
 }
 
+
+//如何处理括号匹配的问题？需要能够识别出错误的表达式
 uint32_t check_parentheses(uint32_t p,uint32_t q){
-    return 0;
+    
 }
 
 uint32_t expr(char *e, bool *success)
@@ -210,7 +212,7 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-    *success = true;
+    *success = false;
     
     uint32_t ans = eval(0,nr_token-1);
     
