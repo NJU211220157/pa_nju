@@ -146,7 +146,7 @@ uint32_t eval(uint32_t p,uint32_t q){
         return eval(p+1,q-1);
     }
     else{
-        uint32_t op;
+        uint32_t op=0;
         char op_type='0';
         
         uint32_t src=p,end=q;
