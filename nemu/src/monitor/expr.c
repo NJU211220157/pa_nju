@@ -204,16 +204,17 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
     char buff[32];
     int top=0;
     while(p<=q){
-        if(tokens[i].type == '('){
+        if(tokens[p].type == '('){
             buff[top++]='(';//入栈
         }
-        else if(tokens[i].type == ')'){
+        else if(tokens[p].type == ')'){
             if(top==0)
                 return -1;//FIFA
             else{
                 top--;//出栈
             }
         }
+        p++;
     }
     if(top > 0)
         return 0;
