@@ -80,7 +80,7 @@ static bool make_token(char *e)
 	regmatch_t pmatch;
 
 	nr_token = 0;//将索引初始化为0
-
+    tokens_len = 0;
 	while (e[position] != '\0')
 	{
 		/* Try all rules one by one. */
@@ -201,7 +201,7 @@ uint32_t eval(uint32_t p,uint32_t q){
 
 //如何处理括号匹配的问题？需要能够识别出错误的表达式
 uint32_t check_parentheses(uint32_t p,uint32_t q){
-    int index_parentheses[32] = { -1 };
+    /*int index_parentheses[32] = { -1 };
     int top=0;uint32_t i=p;
     while(p <= q){
         if(p == q){//最后一个
@@ -219,7 +219,7 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
             }
         }
         p++;
-    }
+    }*/
     return 0;
 }
 
