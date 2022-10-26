@@ -16,8 +16,13 @@ enum
 	EQ,
 	NUM,
 	REG,
-	SYMB
-
+	SYMB,
+	'(',
+	')',
+    '*',
+    '/',
+    '+',
+    '-',
 	/* TODO: Add more token types */
 
 };
@@ -32,8 +37,14 @@ static struct rule
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +", NOTYPE}, // white space
+    {" *", NOTYPE},
+	{" +", NOTYPE}, // white space 一个或者多个空格
+	{"\\(", '('},
+	{"\\)", ')'},
+	{"\\*", '*'},
+	{"\\/", '/'},
 	{"\\+", '+'},
+	{"\\-", '-'},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -96,6 +107,14 @@ static bool make_token(char *e)
 
 				switch (rules[i].token_type)
 				{
+				    case 1://空格
+				        nr_token++;
+				        break;
+				    case 3:{
+				        tokens[nr_token].type=rules[i].token_type;
+				        tokens[nr_token].str=substr_start;
+				        nr_token++;
+				    }
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
