@@ -97,7 +97,8 @@ static bool make_token(char *e)
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-
+                if(i == 0)
+                    break;
 				switch (rules[i].token_type)
 				{
     				case 0:{//空格
@@ -178,8 +179,6 @@ uint32_t eval(uint32_t p,uint32_t q){
                     }
                     break;
                 }
-                default:
-                    break;
             }
             src++;
         }
