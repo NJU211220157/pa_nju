@@ -184,8 +184,9 @@ uint32_t eval(uint32_t p,uint32_t q){
             src++;
         }
         
-        uint32_t val1 = eval(p,op-1);
-        uint32_t val2 = eval(op+1,q);
+        uint32_t val1 = eval(p, op - 1);
+        uint32_t val2 = eval(op + 1, q);
+        
         switch(op_type){
             case '+':return val1 + val2;
             case '-':return val1 - val2;
@@ -198,7 +199,7 @@ uint32_t eval(uint32_t p,uint32_t q){
 }
 
 uint32_t check_parentheses(uint32_t p,uint32_t q){
-    return 1;
+    return 0;
 }
 
 uint32_t expr(char *e, bool *success)
