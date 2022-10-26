@@ -137,7 +137,7 @@ uint32_t eval(uint32_t p,uint32_t q){
         return -1;//返回一个不会对结果造成影响的值
     }
     else if(p == q){
-        if(tokens[p].token_type==NUM)
+        if(tokens[p].type==NUM)
             return atoi(tokens[p].str);
         else
             return -1;
@@ -194,6 +194,7 @@ uint32_t eval(uint32_t p,uint32_t q){
             default:assert(0);
         }
     }
+    return 0;
 }
 
 uint32_t check_parentheses(uint32_t p,uint32_t q){
