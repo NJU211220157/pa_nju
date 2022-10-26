@@ -143,7 +143,7 @@ uint32_t eval(uint32_t p,uint32_t q){
             return -1;
     }
     else if(check_parentheses(p,q) == true){
-        return eval(p+1,q-1);
+        return eval(0,0);
     }
     else{
         uint32_t op=0;
