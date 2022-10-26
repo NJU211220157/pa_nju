@@ -134,7 +134,7 @@ uint32_t check_parentheses(uint32_t p,uint32_t q);
 
 uint32_t eval(uint32_t p,uint32_t q){
     if(p > q){
-        return -1;//返回一个不会对结果造成影响的值
+        return 0;//返回一个不会对结果造成影响的值
     }
     else if(p == q){
         if(tokens[p].type==NUM)
@@ -198,7 +198,7 @@ uint32_t eval(uint32_t p,uint32_t q){
 }
 
 uint32_t check_parentheses(uint32_t p,uint32_t q){
-    return 0;
+    return 1;
 }
 
 uint32_t expr(char *e, bool *success)
