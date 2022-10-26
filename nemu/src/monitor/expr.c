@@ -97,7 +97,7 @@ static bool make_token(char *e)
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-                if(i == 0)
+                if(i == 0)//是空格则退出
                     break;
 				switch (rules[i].token_type)
 				{
