@@ -130,7 +130,7 @@ static bool make_token(char *e)
 	return true;
 }
 
-uint32_t eval(uint32_t p,uint32_t q){
+/*uint32_t eval(uint32_t p,uint32_t q){
     if(p>q){
         return -1;
     }
@@ -141,7 +141,7 @@ uint32_t eval(uint32_t p,uint32_t q){
         return eval(p+1,q-1);
     }
 }
-
+*/
 
 uint32_t expr(char *e, bool *success)
 {
