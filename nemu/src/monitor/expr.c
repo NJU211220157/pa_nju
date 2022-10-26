@@ -154,20 +154,24 @@ uint32_t eval(uint32_t p,uint32_t q){
         uint32_t src=p,end=q;
         uint32_t left_parentheses=0;
         
-        while(src<=end){
+        while(src<=end){//  1 + (2 + 3) 段错误
             switch(tokens[src].type){
-                case '(':
+                case '(':{
                     left_parentheses++;
                     break;
-                case ')':
+                }
+                case ')':{
                     left_parentheses--;
                     break;
-                case '+':
+                }
+                case '+':{
                     op_type='+';op=src;
                     break;
-                case '-':
+                }
+                case '-':{
                     op_type='-';op=src;
                     break;
+                }
                 case '*':{
                     if(op_type=='0'||op_type=='*'||op_type=='/'){
                         op_type='*';op=src;
