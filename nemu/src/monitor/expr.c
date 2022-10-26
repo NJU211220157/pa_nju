@@ -80,7 +80,7 @@ static bool make_token(char *e)
 	regmatch_t pmatch;
 
 	nr_token = 0;//将索引初始化为0
-    tokens_len = 0;
+
 	while (e[position] != '\0')
 	{
 		/* Try all rules one by one. */
