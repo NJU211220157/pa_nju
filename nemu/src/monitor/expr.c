@@ -165,22 +165,30 @@ uint32_t eval(uint32_t p,uint32_t q){
                     break;
                 }
                 case '+':{
-                    op_type='+';op=src;
+                    if(left_parentheses<=0){
+                        op_type='+';op=src;
+                    }
                     break;
                 }
                 case '-':{
-                    op_type='-';op=src;
+                    if(left_parentheses<=0){
+                        op_type='-';op=src;
+                    }
                     break;
                 }
                 case '*':{
                     if(op_type=='0'||op_type=='*'||op_type=='/'){
-                        op_type='*';op=src;
+                        if(left_parentheses<=0){
+                            op_type='*';op=src;
+                        }
                     }
                     break;
                 }
                 case '/':{
                     if(op_type=='0'||op_type=='*'||op_type=='/'){
-                        op_type='/';op=src;
+                        if(left_parentheses<=0){
+                            op_type='/';op=src;
+                        }
                     }
                     break;
                 }
