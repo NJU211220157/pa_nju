@@ -134,17 +134,56 @@ uint32_t check_parentheses(uint32_t p,uint32_t q);
 
 uint32_t eval(uint32_t p,uint32_t q){
     if(p > q){
-        return -1;
+        return -1;//返回一个不会对结果造成影响的值
     }
     else if(p == q){
-        return atoi(tokens[p].str);
+        if(tokens[p].token_type==NUM)
+            return atoi(tokens[p].str);
+        else
+            return -1;
     }
     else if(check_parentheses(p,q) == true){
         return eval(p+1,q-1);
     }
     else{
-        uint32_t op=1;
-        char op_type='+';
+        uint32_t op;
+        char op_type='0';
+        
+        uint32_t src=p,end=q;
+        uint32_t left_parentheses=0;
+        
+        while(src<=end){
+            switch(tokens[src].type){
+                case '(':
+                    left_parentheses++;
+                    break;
+                case ')':
+                    left_parentheses--;
+                    break;
+                case '+':
+                    op_type='+';op=src;
+                    break;
+                case '-':
+                    op_type='-';op=src;
+                    break;
+                case '*':{
+                    if(op_type=='0'||op_type=='*'||op_type=='/'){
+                        op_type='*';op=src;
+                    }
+                    break;
+                }
+                case '/':{
+                    if(op_type=='0'||op_type=='*'||op_type=='/'){
+                        op_type='/';op=src;
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+            src++;
+        }
+        
         uint32_t val1 = eval(p,op-1);
         uint32_t val2 = eval(op+1,q);
         switch(op_type){
@@ -163,15 +202,21 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
 
 uint32_t expr(char *e, bool *success)
 {
-	if (!make_token(e))
+	if (!make_token(e))//make_token()函数以e为参数，修改全局变量tokens
 	{
 		*success = false;
 		return 0;
 	}
 
-	printf("\nPlease implement expr at expr.c\n");
-	fflush(stdout);
-	assert(0);
-
-	return 0;
+    *success = true;
+    
+    uint32_t ans = eval(0,nr_token);
+    
+	return ans;
 }
+
+
+
+
+
+
