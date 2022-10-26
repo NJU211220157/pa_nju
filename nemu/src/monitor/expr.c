@@ -212,8 +212,7 @@ uint32_t expr(char *e, bool *success)
 
     *success = true;
     
-    printf("index = %d",nr_token);
-    uint32_t ans = eval(0,nr_token);
+    uint32_t ans = eval(0,nr_token-1);
     
 	return ans;
 }
