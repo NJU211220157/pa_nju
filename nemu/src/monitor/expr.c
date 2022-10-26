@@ -149,6 +149,8 @@ uint32_t eval(uint32_t p,uint32_t q){
         uint32_t op=0;
         char op_type='0';
         
+        printf("p= %d ,q = %d ",&p,&q);
+        
         uint32_t src=p,end=q;
         uint32_t left_parentheses=0;
         
@@ -220,7 +222,7 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
         }
         p++;
     }*/
-    return 1;
+    return 0;
 }
 
 uint32_t expr(char *e, bool *success)
