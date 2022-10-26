@@ -103,12 +103,13 @@ static bool make_token(char *e)
     				case 0:{//空格
                         break;    				    
     				}
-                    case 2:{// NUM
+                    case NUM:{// NUM
                         tokens[nr_token].type=rules[i].token_type;
                         for(int j=0;j<substr_len;j++){
-                            tokens[nr_token].str[j]=substr_start[position+j];
+                            tokens[nr_token].str[j]=substr_start[j];
                         }
                         nr_token++;
+                        break;
                     }
 				default:
 					tokens[nr_token].type = rules[i].token_type;
