@@ -233,7 +233,7 @@ uint32_t expr(char *e, bool *success)
 
     *success = true;
     
-    printf("nr_token = %d ",nr_token);
+    printf("nr_token = %d\n",nr_token);
     
     uint32_t ans = eval(0,nr_token-1);
     
