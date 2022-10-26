@@ -142,7 +142,7 @@ uint32_t eval(uint32_t p,uint32_t q){
         else
             return -1;
     }
-    else if(check_parentheses(p,q) == true){
+    else if(check_parentheses(p,q) == 1){
         return eval(p + 1, q - 1);
     }
     else{
@@ -201,7 +201,24 @@ uint32_t eval(uint32_t p,uint32_t q){
 
 //如何处理括号匹配的问题？需要能够识别出错误的表达式
 uint32_t check_parentheses(uint32_t p,uint32_t q){
-    return 0;
+    char buff[32];
+    int top=0;
+    while(p<=q){
+        if(tokens[i].type == '('){
+            buff[top++]='(';//入栈
+        }
+        else if(tokens[i].type == ')'){
+            if(top==0)
+                return -1;//FIFA
+            else{
+                top--;//出栈
+            }
+        }
+    }
+    if(top > 0)
+        return 0;
+    else
+        return 1;
 }
 
 uint32_t expr(char *e, bool *success)
@@ -212,7 +229,7 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-    *success = false;
+    *success = true;
     
     uint32_t ans = eval(0,nr_token-1);
     
