@@ -79,7 +79,7 @@ static bool make_token(char *e)
 	int i;
 	regmatch_t pmatch;
 
-	nr_token = 0;
+	nr_token = 0;//将索引初始化为0
 
 	while (e[position] != '\0')
 	{
@@ -91,7 +91,7 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len+1, substr_start);
+				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
 				/* TODO: Now a new token is recognized with rules[i]. 
@@ -130,18 +130,34 @@ static bool make_token(char *e)
 	return true;
 }
 
-/*uint32_t eval(uint32_t p,uint32_t q){
-    if(p>q){
+uint32_t eval(uint32_t p,uint32_t q){
+    if(p > q){
         return -1;
     }
-    else if(p==q){
-        return e[p]-'0';
+    else if(p == q){
+        return atoi(tokens[p].str);
     }
-    else if(check_parentheses(p,q)==true){
+    else if(check_parentheses(p,q) == true){
         return eval(p+1,q-1);
     }
+    else{
+        uint32_t op=1;
+        char op_type='+';
+        uint32_t val1 = eval(p,op-1);
+        uint32_t val2 = eval(op+1,q);
+        switch(op_type){
+            case '+':return val1 + val2;
+            case '-':return val1 - val2;
+            case '*':return val1 * val2;
+            case '/':return val1 / val2;
+            default:assert(0);
+        }
+    }
 }
-*/
+
+uint32_t check_parentheses(uint32_t p,uint32_t q){
+    
+}
 
 uint32_t expr(char *e, bool *success)
 {
