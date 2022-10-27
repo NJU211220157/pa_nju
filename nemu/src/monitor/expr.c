@@ -167,36 +167,15 @@ uint32_t eval(uint32_t p,uint32_t q){
         }
         else if(tokens[p].type == REG){
             int index;
-            switch(tokens[p].str){
-                case "$eax":{
-                    index = 0; break;
-                }
-                case "$ecx":{
-                    index = 1; break;
-                }
-                case "$edx":{
-                    index = 2; break;
-                }
-                case "$ebx":{
-                    index = 3; break;
-                }
-                case "$ebp":{
-                    index = 4; break;
-                }
-                case "$esp":{
-                    index = 5; break;
-                }
-                case "$esi":{
-                    index = 6; break;
-                }
-                case "$edi":{
-                    index = 7; break;
-                }
-                default:{
-                    printf("fifa expr!\n");
-                    return -1;
-                }
-            }
+            if     (tokens[p].str == "$eax") index = 0;
+            else if(tokens[p].str == "$ecx") index = 1;
+            else if(tokens[p].str == "$edx") index = 2;
+            else if(tokens[p].str == "$ebx") index = 3;
+            else if(tokens[p].str == "$esp") index = 4;
+            else if(tokens[p].str == "$ebp") index = 5;
+            else if(tokens[p].str == "$esi") index = 6;
+            else if(tokens[p].str == "$edi") index = 7;
+            else { printf("fifa expr!\n"); return -1; }
             return cpu.gpr[index].val;
         }
         printf("fifa expr!\n");
