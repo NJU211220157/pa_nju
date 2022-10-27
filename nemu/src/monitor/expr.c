@@ -219,7 +219,7 @@ uint32_t eval(uint32_t p,uint32_t q){
     }
     else{
         uint32_t op=0;
-        char op_type='0';
+        char op_type=DEREF;
         
         uint32_t src=p,end=q;
         uint32_t left_parentheses=0;
