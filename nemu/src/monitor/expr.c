@@ -263,6 +263,8 @@ uint32_t eval(uint32_t p,uint32_t q){
 
 
 //如何处理括号匹配的问题？需要能够识别出错误的表达式
+
+// 1+(2+3)
 uint32_t check_parentheses(uint32_t p,uint32_t q){
     int index_parentheses[32] = { -1 };
     int top=0;uint32_t i=p;
@@ -271,11 +273,11 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
             if(tokens[p].type == ')'&& top == 1 && index_parentheses[top-1] == i)
                 return 1;
         }
-        else if(tokens[p].type == '('){
-            index_parentheses[top++]=p;//入栈
+        if(tokens[p].type == '('){
+            index_parentheses[top++] = p;//入栈
         }
         else if(tokens[p].type == ')'){
-            if(top==0)
+            if(top == 0)
                 return -1;//FIFA
             else{
                 top--;//出栈
