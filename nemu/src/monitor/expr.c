@@ -17,6 +17,7 @@ enum
 	NUM,
 	REG,
 	SYMB,
+	HEX
 	/* TODO: Add more token types */
 
 };
@@ -33,6 +34,8 @@ static struct rule
 
 	{" +", NOTYPE}, // white space 一个或者多个空格
 	{"[0-9]{1,10}",NUM},
+	{"0[xX][0-9a-fA-F]{1,10}",HEX},//十六进制数字
+	//{"\\$[a-z]{2,3}",REG},
 	{"\\+",'+'},
 	{"-",'-'},
 	{"\\*",'*'},
@@ -105,6 +108,14 @@ static bool make_token(char *e)
     				case 0:{//空格
                         break;    				    
     				}
+    				case HEX:{
+    				    tokens[nr_token].type=rules[i].token_type;
+                        for(int j=0;j<substr_len;j++){
+                            tokens[nr_token].str[j]=substr_start[j];
+                        }
+                        nr_token++;
+                        break;
+    				}
                     case NUM:{// NUM
                         tokens[nr_token].type=rules[i].token_type;
                         for(int j=0;j<substr_len;j++){
@@ -139,8 +150,13 @@ uint32_t eval(uint32_t p,uint32_t q){
         return 0;//返回一个不会对结果造成影响的值
     }
     else if(p == q){
-        if(tokens[p].type==NUM)
+        if(tokens[p].type == NUM)
             return atoi(tokens[p].str);
+        else if(tokens[p].type == HEX){
+            uint32_t val;
+            sscanf(tokens[p].str,"%x",&val);
+            return val;
+        }
         else
             return -1;
     }
