@@ -147,6 +147,10 @@ uint32_t eval(uint32_t p,uint32_t q){
     else if(check_parentheses(p,q) == 1){
         return eval(p + 1, q - 1);
     }
+    else if()check_parentheses(p,q) == -1{
+        printf("fifa expr!\n");
+        return -1;
+    }
     else{
         uint32_t op=0;
         char op_type='0';
