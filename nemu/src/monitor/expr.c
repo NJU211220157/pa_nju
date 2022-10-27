@@ -65,8 +65,7 @@ static struct rule
 	{"\\!",NOT},
 	
 	{"\\==",EQ},
-	{"\\&&",AND},
-	{"||",OR}
+	{"\\&&",AND}
 	
 };
 
