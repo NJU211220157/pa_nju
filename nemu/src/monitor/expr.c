@@ -378,8 +378,7 @@ uint32_t expr(char *e, bool *success)
     bool last_oper = 0 ;
     
     for(int i = 0;i<nr_token;i++){
-        printf("type = %d\n ",DIV);
-        if(tokens[i].type >= 8 && tokens[i].type <= 15){
+        if(tokens[i].type >= DIV && tokens[i].type <= OR){
             if(last_oper == 1){
                 printf("fifa expr!\n");
                 return -1;
