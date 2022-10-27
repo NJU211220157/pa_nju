@@ -155,6 +155,7 @@ static bool make_token(char *e)
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
+					break;
 				}
 
 				break;
