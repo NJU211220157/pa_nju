@@ -121,7 +121,7 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
+				//printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
                 if(i == 0)//是空格则退出
@@ -237,19 +237,23 @@ uint32_t eval(uint32_t p,uint32_t q){
                     break;
                 }
                 case ADD:{
-                    if(left_parentheses<=0){
-                        op_type = ADD;op = src;
+                    if(op_type == 0 || op_type <= SUB){
+                        if(left_parentheses<=0){
+                            op_type = ADD;op = src;
+                        }
                     }
                     break;
                 }
                 case SUB:{
-                    if(left_parentheses<=0){
-                        op_type = SUB;op = src;
+                    if(op_type == 0 || op_type <= SUB){
+                        if(left_parentheses<=0){
+                            op_type = SUB;op = src;
+                        }
                     }
                     break;
                 }
                 case MUL:{
-                    if(op_type==0||op_type==MUL||op_type==DIV){
+                    if(op_type == 0||op_type <= MUL){
                         if(left_parentheses<=0){
                             op_type = MUL;op = src;
                         }
@@ -257,9 +261,41 @@ uint32_t eval(uint32_t p,uint32_t q){
                     break;
                 }
                 case DIV:{
-                    if(op_type==0||op_type==MUL||op_type==DIV){
+                    if(op_type == 0||op_type <= MUL){
                         if(left_parentheses<=0){
                             op_type = DIV;op = src;
+                        }
+                    }
+                    break;
+                }
+                case EQ:{
+                    if(op_type == 0||op_type <= NEQ){
+                        if(left_parentheses<=0){
+                            op_type = EQ;op = src;
+                        }
+                    }
+                    break;
+                }
+                case NEQ:{
+                    if(op_type == 0||op_type <= NEQ){
+                        if(left_parentheses<=0){
+                            op_type = NEQ;op = src;
+                        }
+                    }
+                    break;
+                }
+                case AND:{
+                    if(op_type == 0||op_type <= AND){
+                        if(left_parentheses<=0){
+                            op_type = AND;op = src;
+                        }
+                    }
+                    break;
+                }
+                case OR:{
+                    if(op_type == 0||op_type <= OR){
+                        if(left_parentheses<=0){
+                            op_type = OR;op = src;
                         }
                     }
                     break;
@@ -273,10 +309,14 @@ uint32_t eval(uint32_t p,uint32_t q){
         uint32_t val2 = eval(op + 1, q);
         
         switch(op_type){
-            case ADD:return val1 + val2;
-            case SUB:return val1 - val2;
-            case MUL:return val1 * val2;
-            case DIV:return val1 / val2;
+            case ADD:  return val1 + val2;
+            case SUB:  return val1 - val2;
+            case MUL:  return val1 * val2;
+            case DIV:  return val1 / val2;
+            case EQ:   return val1 == val2;
+            case NEQ:  return val1 != val2;
+            case AND:  return val1 && val2;
+            case OR:   return val1 || val2;
             default:assert(0);
         }
     }
@@ -322,7 +362,7 @@ uint32_t expr(char *e, bool *success)
 
     *success = true;
     
-    printf("nr_token = %d\n",nr_token);
+    //printf("nr_token = %d\n",nr_token);
     
     
     
