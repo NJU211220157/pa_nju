@@ -399,10 +399,10 @@ uint32_t expr(char *e, bool *success)
     bool last_oper = 0 ;
     
     for(int i = 0;i < nr_token; i++){
-        if(tokens[i].type == SUB && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
-            tokens[i].type = SUB;
+        if(tokens[i].type == SUB && (i == 0 || (tokens[i-1].type >= DIV && tokens[i-1].type <= OR)  )){
+            tokens[i].type = NEG;
         }
-        else if(tokens[i].type == MUL && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
+        else if(tokens[i].type == MUL && (i == 0 || (tokens[i-1].type >= DIV && tokens[i-1].type <= OR)  )){
             tokens[i].type = DEREF;
         }
     }
