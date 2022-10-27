@@ -402,7 +402,7 @@ uint32_t expr(char *e, bool *success)
         /*if(tokens[i].type == '-' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
             tokens[i].type = NEG;
         }*/
-        else if(tokens[i].type == '*' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
+        if(tokens[i].type == '*' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
             tokens[i].type = DEREF;
         }
     }
