@@ -400,7 +400,7 @@ uint32_t expr(char *e, bool *success)
     
     for(int i = 0;i < nr_token; i++){
         if(tokens[i].type == SUB && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
-            tokens[i].type = NEG;
+            tokens[i].type = SUB;
         }
         else if(tokens[i].type == MUL && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
             tokens[i].type = DEREF;
