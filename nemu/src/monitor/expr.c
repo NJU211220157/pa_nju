@@ -301,8 +301,11 @@ uint32_t eval(uint32_t p,uint32_t q){
                     break;
                 }
                 case DEREF:{
-                    /*uint32_t addr = eval(op + 1,q);
-                    uint32_t val  = vaddr_read(addr, uint8_t sreg, 32);*/
+                    if(op_type == 0||op_type <= DEREF){
+                        if(left_parentheses<=0){
+                            op_type = DEREF;op = src;
+                        }
+                    }
                     break;
                 }
                 case NEG:{
@@ -329,9 +332,9 @@ uint32_t eval(uint32_t p,uint32_t q){
 
         switch(op_type){
             case DEREF:{
-                /*uint32_t addr = eval(op + 1,q);
-                uint32_t val  = vaddr_read(addr, uint8_t sreg, 32);*/
-                break;
+                uint32_t addr = eval(op + 1,q);
+                uint32_t val  = vaddr_read(addr, SREG_CS, 32);
+                return val;
             }
             case NEG:   return 0-(eval(op + 1,q));
             case NOT:   return !eval(op + 1,q);
