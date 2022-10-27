@@ -124,10 +124,9 @@ static bool make_token(char *e)
 				//printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
-                if(i == 0)//是空格则退出
-                    break;
 				switch (rules[i].token_type)
 				{
+				    case NOTYPE:break;
     				case REG:{
     				    tokens[nr_token].type=rules[i].token_type;
                         for(int j=0;j<substr_len;j++){
