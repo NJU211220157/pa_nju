@@ -66,7 +66,7 @@ static struct rule
 	
 	{"\\==",EQ},
 	{"\\&&",AND},
-	{"\\||",OR}
+	{"\\|",OR}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -406,7 +406,7 @@ uint32_t expr(char *e, bool *success)
             tokens[i].type = DEREF;
         }
     }
-    
+    printf("type = %d\n",tokens[0].type);
     
     
     for(int i = 0;i<nr_token;i++){
