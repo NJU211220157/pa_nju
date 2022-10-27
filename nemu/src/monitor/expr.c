@@ -378,12 +378,9 @@ uint32_t expr(char *e, bool *success)
     bool last_oper = 0 ;
     
     for(int i = 0;i<nr_token;i++){
-        if(i >= 1 && tokens[i-1].type == tokens[i].type&&tokens[i].type == NUM){
-            printf("fifa expr!\n");
-            return -1;
-        }
+        printf("type = %d\n ",tokens[i].type);
         if(tokens[i].type >= 8 && tokens[i].type <= 15){
-            if(last_oper){
+            if(last_oper == 1){
                 printf("fifa expr!\n");
                 return -1;
             }
@@ -391,6 +388,10 @@ uint32_t expr(char *e, bool *success)
         }
         else{
             last_oper = 0;
+        }
+        if(i >= 1 && tokens[i-1].type == tokens[i].type&&tokens[i].type == NUM){
+            printf("fifa expr!\n");
+            return -1;
         }
     }
     
