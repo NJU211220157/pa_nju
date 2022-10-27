@@ -1,6 +1,7 @@
 #include "nemu.h"
 #include "cpu/reg.h"
 #include "memory/memory.h"
+#include "cpu/cpu.h"
 
 #include <stdlib.h>
 
@@ -176,8 +177,7 @@ uint32_t eval(uint32_t p,uint32_t q){
             else if( strcmp(tokens[p].str,"$esi") == 0 ) index = 6;
             else if( strcmp(tokens[p].str,"$edi") == 0 ) index = 7;
             else { printf("fifa expr!\n"); return -1; }
-            //index = cpu.gpr[index].val;
-            return index;
+            return cpu.gpr[index].val;
         }
         printf("fifa expr!\n");
         return -1;
