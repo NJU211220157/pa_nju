@@ -96,12 +96,9 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				//printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
+				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
-				/* TODO: Now a new token is recognized with rules[i]. 
-				 * Add codes to perform some actions with this token.
-				 */
                 if(i == 0)//是空格则退出
                     break;
 				switch (rules[i].token_type)
@@ -168,20 +165,20 @@ uint32_t eval(uint32_t p,uint32_t q){
         }
         else if(tokens[p].type == REG){
             if     ( strcmp(tokens[p].str,"$eax") == 0 ) return cpu.gpr[0].val;
-            else if( strcmp(tokens[p].str,"$ax")  == 0 ) return cpu.gpr[0]._16;
-            else if( strcmp(tokens[p].str,"$al")  == 0 ) return cpu.gpr[0]._8[0];
+            else if( strcmp(tokens[p].str,"$ax" ) == 0 ) return cpu.gpr[0]._16;
+            else if( strcmp(tokens[p].str,"$al" ) == 0 ) return cpu.gpr[0]._8[0];
             
             else if( strcmp(tokens[p].str,"$ecx") == 0 ) return cpu.gpr[1].val;
-            else if( strcmp(tokens[p].str,"$cx")  == 0 ) return cpu.gpr[1]._16;
-            else if( strcmp(tokens[p].str,"$cl")  == 0 ) return cpu.gpr[1]._8[0];
+            else if( strcmp(tokens[p].str,"$cx" ) == 0 ) return cpu.gpr[1]._16;
+            else if( strcmp(tokens[p].str,"$cl" ) == 0 ) return cpu.gpr[1]._8[0];
             
             else if( strcmp(tokens[p].str,"$edx") == 0 ) return cpu.gpr[2].val;
-            else if( strcmp(tokens[p].str,"$dx")  == 0 ) return cpu.gpr[2]._16;
-            else if( strcmp(tokens[p].str,"$dl")  == 0 ) return cpu.gpr[2]._8[0];
+            else if( strcmp(tokens[p].str,"$dx" ) == 0 ) return cpu.gpr[2]._16;
+            else if( strcmp(tokens[p].str,"$dl" ) == 0 ) return cpu.gpr[2]._8[0];
             
             else if( strcmp(tokens[p].str,"$ebx") == 0 ) return cpu.gpr[3].val;
-            else if( strcmp(tokens[p].str,"$bx")  == 0 ) return cpu.gpr[3]._16;
-            else if( strcmp(tokens[p].str,"$bl")  == 0 ) return cpu.gpr[3]._8[0];
+            else if( strcmp(tokens[p].str,"$bx" ) == 0 ) return cpu.gpr[3]._16;
+            else if( strcmp(tokens[p].str,"$bl" ) == 0 ) return cpu.gpr[3]._8[0];
             
             else if( strcmp(tokens[p].str,"$esp") == 0 ) return cpu.gpr[4].val;
             else if( strcmp(tokens[p].str,"$ebp") == 0 ) return cpu.gpr[5].val;
