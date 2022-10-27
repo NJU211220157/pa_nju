@@ -333,7 +333,7 @@ uint32_t eval(uint32_t p,uint32_t q){
                 uint32_t val  = vaddr_read(addr, uint8_t sreg, 32);*/
                 break;
             }
-            case NEG:   return -eval(op + 1,q);
+            case NEG:   return 0-(eval(op + 1,q));
             case NOT:   return !eval(op + 1,q);
             default:break;
         }
