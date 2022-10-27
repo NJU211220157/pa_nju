@@ -299,6 +299,12 @@ uint32_t expr(char *e, bool *success)
     *success = true;
     
     //printf("nr_token = %d\n",nr_token);
+    for(int i=1;i<nr_token;i++){
+        if(tokens[i-1].type == tokens[i].type && tokens[i].type != '(' && tokens[i].tpye != ')'){
+            printf("fifa expr!\n");
+            return -1;
+        }
+    }
     
     uint32_t ans = eval(0,nr_token-1);
     
