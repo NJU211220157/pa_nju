@@ -65,7 +65,7 @@ static struct rule
 	{"\\||",OR},
 	
 	{"\\(",'('},
-	{"\\)",')'},
+	{"\\)",')'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
