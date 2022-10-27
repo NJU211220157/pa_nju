@@ -283,7 +283,8 @@ uint32_t check_parentheses(uint32_t p,uint32_t q){
         }
         p++;
     }
-    if(top>0)
+    printf("top = %d \n",top);
+    if(top > 0)
         return -1;
     return 0;
 }
