@@ -167,18 +167,27 @@ uint32_t eval(uint32_t p,uint32_t q){
             return val;
         }
         else if(tokens[p].type == REG){
-            uint32_t index;
-            if     ( strcmp(tokens[p].str,"$eax") == 0 ) index = 0;
-            else if( strcmp(tokens[p].str,"$ax") == 0) return cpu.gpr[0]._16;
-            else if( strcmp(tokens[p].str,"$ecx") == 0 ) index = 1;
-            else if( strcmp(tokens[p].str,"$edx") == 0 ) index = 2;
-            else if( strcmp(tokens[p].str,"$ebx") == 0 ) index = 3;
-            else if( strcmp(tokens[p].str,"$esp") == 0 ) index = 4;
-            else if( strcmp(tokens[p].str,"$ebp") == 0 ) index = 5;
-            else if( strcmp(tokens[p].str,"$esi") == 0 ) index = 6;
-            else if( strcmp(tokens[p].str,"$edi") == 0 ) index = 7;
+            if     ( strcmp(tokens[p].str,"$eax") == 0 ) return cpu.gpr[0].val;
+            else if( strcmp(tokens[p].str,"$ax")  == 0 ) return cpu.gpr[0]._16;
+            else if( strcmp(tokens[p].str,"$al")  == 0 ) return cpu.gpr[0]._8[0];
+            
+            else if( strcmp(tokens[p].str,"$ecx") == 0 ) return cpu.gpr[1].val;
+            else if( strcmp(tokens[p].str,"$cx")  == 0 ) return cpu.gpr[1]._16;
+            else if( strcmp(tokens[p].str,"$cl")  == 0 ) return cpu.gpr[1]._8[0];
+            
+            else if( strcmp(tokens[p].str,"$edx") == 0 ) return cpu.gpr[2].val;
+            else if( strcmp(tokens[p].str,"$dx")  == 0 ) return cpu.gpr[2]._16;
+            else if( strcmp(tokens[p].str,"$dl")  == 0 ) return cpu.gpr[2]._8[0];
+            
+            else if( strcmp(tokens[p].str,"$ebx") == 0 ) return cpu.gpr[3].val;
+            else if( strcmp(tokens[p].str,"$bx")  == 0 ) return cpu.gpr[3]._16;
+            else if( strcmp(tokens[p].str,"$bl")  == 0 ) return cpu.gpr[3]._8[0];
+            
+            else if( strcmp(tokens[p].str,"$esp") == 0 ) return cpu.gpr[4].val;
+            else if( strcmp(tokens[p].str,"$ebp") == 0 ) return cpu.gpr[5].val;;
+            else if( strcmp(tokens[p].str,"$esi") == 0 ) return cpu.gpr[6].val;
+            else if( strcmp(tokens[p].str,"$edi") == 0 ) return cpu.gpr[7].val;
             else { printf("fifa expr!\n"); return -1; }
-            return cpu.gpr[index].val;
         }
         printf("fifa expr!\n");
         return -1;
