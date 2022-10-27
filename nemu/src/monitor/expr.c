@@ -375,7 +375,7 @@ uint32_t expr(char *e, bool *success)
     
     //printf("nr_token = %d\n",nr_token);
     
-    bool last_oper;
+    bool last_oper = 0 ;
     
     for(int i = 0;i<nr_token;i++){
         if(i >= 1 && tokens[i-1].type == tokens[i].type&&tokens[i].type == NUM){
