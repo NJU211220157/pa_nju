@@ -119,7 +119,7 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				//printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
+				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
                 if(i == 0)//是空格则退出
@@ -321,7 +321,6 @@ uint32_t expr(char *e, bool *success)
     *success = true;
     
     //printf("nr_token = %d\n",nr_token);
-    
     
     
     
