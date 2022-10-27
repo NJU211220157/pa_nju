@@ -219,7 +219,7 @@ uint32_t eval(uint32_t p,uint32_t q){
     }
     else{
         uint32_t op=0;
-        char* op_type="0";
+        int op_type=0;;
         
         uint32_t src=p,end=q;
         uint32_t left_parentheses=0;
@@ -247,7 +247,7 @@ uint32_t eval(uint32_t p,uint32_t q){
                     break;
                 }
                 case MUL:{
-                    if(op_type=='0'||op_type==MUL||op_type==DIV){
+                    if(op_type==0||op_type==MUL||op_type==DIV){
                         if(left_parentheses<=0){
                             op_type = MUL;op = src;
                         }
@@ -255,7 +255,7 @@ uint32_t eval(uint32_t p,uint32_t q){
                     break;
                 }
                 case DIV:{
-                    if(op_type=='0'||op_type==MUL||op_type==DIV){
+                    if(op_type==0||op_type==MUL||op_type==DIV){
                         if(left_parentheses<=0){
                             op_type = DIV;op = src;
                         }
