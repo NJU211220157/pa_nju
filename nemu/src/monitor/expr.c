@@ -394,18 +394,19 @@ uint32_t expr(char *e, bool *success)
 
     *success = true;
     
-    //printf("nr_token = %d\n",nr_token);
+    printf("nr_token = %d\n",nr_token);
     
     bool last_oper = 0 ;
     
     for(int i = 0;i < nr_token; i++){
-        /*if(tokens[i].type == '-' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
+        if(tokens[i].type == '-' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
             tokens[i].type = NEG;
-        }*/
-        if(tokens[i].type == '*' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
+        }
+        else if(tokens[i].type == '*' && (i == 0 || (tokens[i].type >= DIV && tokens[i].type <= OR)  )){
             tokens[i].type = DEREF;
         }
     }
+    
     
     
     for(int i = 0;i<nr_token;i++){
