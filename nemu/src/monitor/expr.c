@@ -57,7 +57,7 @@ static struct rule
 	{"\\$[a-z]{2,3}",REG},
 	
 	{"\\+",ADD},
-	{"-",SUB},
+	{"-",NEG},
 	{"\\*",MUL},
 	{"\\/",DIV},
 	
@@ -394,7 +394,7 @@ uint32_t expr(char *e, bool *success)
 
     *success = true;
     
-    printf("nr_token = %d\n",nr_token);
+    //printf("nr_token = %d\n",nr_token);
     
     bool last_oper = 0 ;
     
