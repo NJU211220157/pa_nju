@@ -166,7 +166,7 @@ uint32_t eval(uint32_t p,uint32_t q){
             return val;
         }
         else if(tokens[p].type == REG){
-            int index;
+            uint32_t index;
             if     ( strcmp(tokens[p].str,"$eax") == 0 ) index = 0;
             else if( strcmp(tokens[p].str,"$ecx") == 0 ) index = 1;
             else if( strcmp(tokens[p].str,"$edx") == 0 ) index = 2;
@@ -176,7 +176,8 @@ uint32_t eval(uint32_t p,uint32_t q){
             else if( strcmp(tokens[p].str,"$esi") == 0 ) index = 6;
             else if( strcmp(tokens[p].str,"$edi") == 0 ) index = 7;
             else { printf("fifa expr!\n"); return -1; }
-            return cpu.gpr[index].val;
+            index = cpu.gpr[index].val;
+            return index;
         }
         printf("fifa expr!\n");
         return -1;
