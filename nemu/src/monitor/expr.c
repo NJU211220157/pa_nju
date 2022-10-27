@@ -48,6 +48,10 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space 一个或者多个空格
+	
+	{"\\(",'('},
+	{"\\)",')'}
+	
 	{"0[xX][0-9a-fA-F]{1,10}",HEX},//十六进制数字 应该放在NUM之前
 	{"[0-9]{1,10}",NUM},
 	{"\\$[a-z]{2,3}",REG},
@@ -64,8 +68,6 @@ static struct rule
 	{"\\&&",AND},
 	{"\\||",OR},
 	
-	{"\\(",'('},
-	{"\\)",')'}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -320,7 +322,7 @@ uint32_t expr(char *e, bool *success)
 
     *success = true;
     
-    //printf("nr_token = %d\n",nr_token);
+    printf("nr_token = %d\n",nr_token);
     
     
     
