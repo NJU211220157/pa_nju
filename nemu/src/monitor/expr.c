@@ -408,7 +408,6 @@ uint32_t expr(char *e, bool *success)
     }
     
     
-    
     for(int i = 0;i<nr_token;i++){
         if(tokens[i].type >= DIV && tokens[i].type <= OR){
             if(last_oper == 1){
