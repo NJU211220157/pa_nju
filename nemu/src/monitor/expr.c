@@ -165,7 +165,7 @@ uint32_t eval(uint32_t p,uint32_t q){
         }
         else if(tokens[p].type == REG){
             if     ( strcmp(tokens[p].str,"$eax") == 0 ) return cpu.gpr[0].val;
-            else if( strcmp(tokens[p].str,"$ax" ) == 4 ) return cpu.gpr[0]._16;
+            else if( strcmp(tokens[p].str,"$ax" ) == 3 ) return cpu.gpr[0]._16;
             else if( strcmp(tokens[p].str,"$al" ) == 0 ) return cpu.gpr[0]._8[0];
             
             else if( strcmp(tokens[p].str,"$ecx") == 0 ) return cpu.gpr[1].val;
