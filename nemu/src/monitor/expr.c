@@ -14,13 +14,27 @@
 enum
 {
 	NOTYPE = 256,
-	EQ,
 	NUM,
 	REG,
-	SYMB,
-	HEX
+	SYMB,//符号
 	/* TODO: Add more token types */
-
+    HEX,//16进制数
+    
+    DEREF,//*
+    NEG,// -
+    NOT,// !
+    
+    DIV,// /
+    MUL,// *
+    ADD,// +
+    SUB,// -
+    
+	EQ,//==
+	NEQ,//!=
+	
+	AND,// &&
+	OR,// ||
+	
 };
 
 static struct rule
@@ -37,10 +51,19 @@ static struct rule
 	{"0[xX][0-9a-fA-F]{1,10}",HEX},//十六进制数字 应该放在NUM之前
 	{"[0-9]{1,10}",NUM},
 	{"\\$[a-z]{2,3}",REG},
-	{"\\+",'+'},
-	{"-",'-'},
-	{"\\*",'*'},
-	{"\\/",'/'},
+	
+	{"\\+",ADD},
+	{"-",SUB},
+	{"\\*",MUL},
+	{"\\/",DIV},
+	
+	{"\\!=",NEQ}
+	{"\\!",NOT},
+	
+	{"\\==",EQ},
+	{"\\&&",AND},
+	{"\\||",OR},
+	
 	{"\\(",'('},
 	{"\\)",')'},
 };
@@ -103,9 +126,6 @@ static bool make_token(char *e)
                     break;
 				switch (rules[i].token_type)
 				{
-    				case 0:{//空格
-                        break;    				    
-    				}
     				case REG:{
     				    tokens[nr_token].type=rules[i].token_type;
                         for(int j=0;j<substr_len;j++){
@@ -214,30 +234,30 @@ uint32_t eval(uint32_t p,uint32_t q){
                     left_parentheses--;
                     break;
                 }
-                case '+':{
+                case ADD:{
                     if(left_parentheses<=0){
-                        op_type='+';op=src;
+                        op_type = ADD;op = src;
                     }
                     break;
                 }
-                case '-':{
+                case SUB:{
                     if(left_parentheses<=0){
-                        op_type='-';op=src;
+                        op_type = SUB;op = src;
                     }
                     break;
                 }
-                case '*':{
-                    if(op_type=='0'||op_type=='*'||op_type=='/'){
+                case MUL:{
+                    if(op_type=='0'||op_type==MUL||op_type==DIV){
                         if(left_parentheses<=0){
-                            op_type='*';op=src;
+                            op_type = MUL;op = src;
                         }
                     }
                     break;
                 }
-                case '/':{
-                    if(op_type=='0'||op_type=='*'||op_type=='/'){
+                case DIV:{
+                    if(op_type=='0'||op_type==MUL||op_type==DIV){
                         if(left_parentheses<=0){
-                            op_type='/';op=src;
+                            op_type = DIV;op = src;
                         }
                     }
                     break;
@@ -251,10 +271,10 @@ uint32_t eval(uint32_t p,uint32_t q){
         uint32_t val2 = eval(op + 1, q);
         
         switch(op_type){
-            case '+':return val1 + val2;
-            case '-':return val1 - val2;
-            case '*':return val1 * val2;
-            case '/':return val1 / val2;
+            case ADD:return val1 + val2;
+            case SUB:return val1 - val2;
+            case MUL:return val1 * val2;
+            case DIV:return val1 / val2;
             default:assert(0);
         }
     }
@@ -301,8 +321,12 @@ uint32_t expr(char *e, bool *success)
     *success = true;
     
     //printf("nr_token = %d\n",nr_token);
-    for(int i=1;i<nr_token;i++){
-        if(tokens[i-1].type == tokens[i].type && tokens[i].type != '(' && tokens[i].type != ')'){
+    
+    
+    
+    
+    for(int i = 0;i<nr_token;i++){
+        if(i >= 1 && tokens[i-1].type == tokens[i].type&&tokens[i].type == NUM){
             printf("fifa expr!\n");
             return -1;
         }
