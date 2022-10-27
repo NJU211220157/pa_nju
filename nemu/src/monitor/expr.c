@@ -300,7 +300,7 @@ uint32_t expr(char *e, bool *success)
     
     //printf("nr_token = %d\n",nr_token);
     for(int i=1;i<nr_token;i++){
-        if(tokens[i-1].type == tokens[i].type && tokens[i].type != '(' && tokens[i].tpye != ')'){
+        if(tokens[i-1].type == tokens[i].type && tokens[i].type != '(' && tokens[i].type != ')'){
             printf("fifa expr!\n");
             return -1;
         }
