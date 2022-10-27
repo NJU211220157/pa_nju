@@ -187,7 +187,8 @@ uint32_t eval(uint32_t p,uint32_t q){
             else if( strcmp(tokens[p].str,"$ebp") == 0 ) return cpu.gpr[5].val;
             else if( strcmp(tokens[p].str,"$esi") == 0 ) return cpu.gpr[6].val;
             else if( strcmp(tokens[p].str,"$edi") == 0 ) return cpu.gpr[7].val;
-            else { printf("fifa expr!\n"); return -1; }
+            
+            else { printf("fifa registers expr!\n"); return -1; }
         }
         printf("fifa expr!\n");
         return -1;
