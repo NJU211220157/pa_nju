@@ -57,7 +57,7 @@ static struct rule
 	{"\\$[a-z]{2,3}",REG},
 	
 	{"\\+",ADD},
-	{"-",NEG},
+	{"-",SUB},
 	{"\\*",MUL},
 	{"\\/",DIV},
 	
