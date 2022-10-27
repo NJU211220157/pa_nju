@@ -226,7 +226,7 @@ uint32_t eval(uint32_t p,uint32_t q){
         uint32_t src=p,end=q;
         uint32_t left_parentheses=0;
         
-        while(src<=end){//  1 + (2 + 3) 段错误
+        while(src<=end){
             switch(tokens[src].type){
                 case '(':{
                     left_parentheses++;
@@ -305,6 +305,17 @@ uint32_t eval(uint32_t p,uint32_t q){
             src++;
         }
         
+
+        switch(op_type){
+            case DEREF:{
+                /*uint32_t addr = eval(op + 1,q);
+                uint32_t val  = vaddr_read(addr, uint8_t sreg, 32);*/
+                break;
+            }
+            case NEG:   return -eval(op + 1,q);
+            case NOT:   return !eval(op + 1,q);
+            default:break;
+        }
         uint32_t val1 = eval(p, op - 1);
         uint32_t val2 = eval(op + 1, q);
         
@@ -364,12 +375,22 @@ uint32_t expr(char *e, bool *success)
     
     //printf("nr_token = %d\n",nr_token);
     
-    
+    bool last_oper;
     
     for(int i = 0;i<nr_token;i++){
         if(i >= 1 && tokens[i-1].type == tokens[i].type&&tokens[i].type == NUM){
             printf("fifa expr!\n");
             return -1;
+        }
+        if(tokens[i].type >= 8 && tokens[i].type <= 15){
+            if(last_oper){
+                printf("fifa expr!\n");
+                return -1;
+            }
+            last_oper = 1;
+        }
+        else{
+            last_oper = 0;
         }
     }
     
