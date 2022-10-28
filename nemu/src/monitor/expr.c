@@ -2,8 +2,7 @@
 #include "cpu/reg.h"
 #include "memory/memory.h"
 #include "cpu/cpu.h"
-//#include "elf.c"
-#include <elf.h>
+
 
 
 #include <stdlib.h>
@@ -13,6 +12,8 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+
+uint32_t look_up_symtab(char *sym, bool *success);
 
 enum
 {
@@ -200,10 +201,10 @@ uint32_t eval(uint32_t p,uint32_t q){
             sscanf(tokens[p].str,"%x",&val);
             return val;
         }
-        /*else if(tokens[p].type == SYMB){
+        else if(tokens[p].type == SYMB){
             bool success;
             return look_up_symtab(tokens[p].str,&success);
-        }*/
+        }
         else if(tokens[p].type == REG){
             if     ( strcmp(tokens[p].str,"$eax") == 0 ) return cpu.gpr[0].val;
             else if( strcmp(tokens[p].str,"$ax" ) == 0 ) return cpu.gpr[0]._16;
