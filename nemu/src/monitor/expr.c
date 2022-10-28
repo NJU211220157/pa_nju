@@ -198,6 +198,10 @@ uint32_t eval(uint32_t p,uint32_t q){
             sscanf(tokens[p].str,"%x",&val);
             return val;
         }
+        else if(tokens[p].type == SYMB){
+            bool success;
+            return look_up_symtab(tokens[p].str,&success);
+        }
         else if(tokens[p].type == REG){
             if     ( strcmp(tokens[p].str,"$eax") == 0 ) return cpu.gpr[0].val;
             else if( strcmp(tokens[p].str,"$ax" ) == 0 ) return cpu.gpr[0]._16;
