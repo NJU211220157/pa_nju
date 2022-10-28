@@ -2,7 +2,7 @@
 #include "cpu/reg.h"
 #include "memory/memory.h"
 #include "cpu/cpu.h"
-//#include "elf.c"
+#include "elf.c"
 
 #include <stdlib.h>
 
