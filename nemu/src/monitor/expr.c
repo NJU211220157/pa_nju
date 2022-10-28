@@ -334,7 +334,7 @@ uint32_t eval(uint32_t p,uint32_t q){
             case DEREF:{
                 uint32_t addr = eval(op + 1,q);
                 printf("not implentment!\n");
-                //uint32_t val  = vaddr_read(addr, SREG_CS, 32);
+                uint32_t val  = vaddr_read(addr, SREG_CS, 4);
                 return addr;
             }
             case NEG:   return 0-(eval(op + 1,q));
