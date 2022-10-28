@@ -333,7 +333,6 @@ uint32_t eval(uint32_t p,uint32_t q){
         switch(op_type){
             case DEREF:{
                 uint32_t addr = eval(op + 1,q);
-                printf("not implentment!\n");
                 uint32_t val  = vaddr_read(addr, SREG_CS, 4);
                 return val;
             }
@@ -406,7 +405,7 @@ uint32_t expr(char *e, bool *success)
         if(tokens[i].type == SUB && (i == 0 || (tokens[i-1].type >= DIV && tokens[i-1].type <= OR)  )){
             tokens[i].type = NEG;
         }
-        else if(tokens[i].type == MUL && (i == 0 || (tokens[i-1].type >= DIV && tokens[i-1].type <= OR)  )){
+        else if(tokens[i].type == MUL && (i == 0 || (tokens[i-1].type >= NEG && tokens[i-1].type <= OR)  )){
             tokens[i].type = DEREF;
         }
     }
