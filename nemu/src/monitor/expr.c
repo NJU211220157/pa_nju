@@ -48,7 +48,7 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space 一个或者多个空格
-	{"[a-zA-Z_0-9]",SYMB}
+	{"[a-zA-Z_0-9]",SYMB},
 	{"\\(",'('},
 	{"\\)",')'},
 	
