@@ -141,6 +141,10 @@ static bool make_token(char *e)
 				            strcpy(tokens[nr_token].str,q);
 				            nr_token++;
 				        }
+				        else{
+				            printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+			                return false;
+				        }
 				        break;
 				    }
     				case REG:{
