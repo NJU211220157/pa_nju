@@ -48,7 +48,7 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space 一个或者多个空格
-	
+	{"[a-zA-Z_0-9]",SYMB}
 	{"\\(",'('},
 	{"\\)",')'},
 	
@@ -127,6 +127,11 @@ static bool make_token(char *e)
                     break;
 				switch (rules[i].token_type)
 				{
+				    case SYMB:{
+				        bool success;
+				        char* q;strncpy(q,substr_start,substr_len);
+				        look_up_symtab(q,success);
+				    }
     				case REG:{
     				    tokens[nr_token].type=rules[i].token_type;
                         for(int j=0;j<substr_len;j++){
