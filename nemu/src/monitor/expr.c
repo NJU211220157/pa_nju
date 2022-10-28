@@ -130,7 +130,8 @@ static bool make_token(char *e)
 				{
 				    case SYMB:{
 				        bool success;
-				        char* q;strncpy(q,substr_start,substr_len);
+				        char* q=NULL;
+				        strncpy(q,substr_start,substr_len);
 				        look_up_symtab(q,&success);
 				    }
     				case REG:{
