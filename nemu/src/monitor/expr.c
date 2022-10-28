@@ -133,6 +133,12 @@ static bool make_token(char *e)
 				        char q[32];
 				        strncpy(q,substr_start,substr_len);
 				        look_up_symtab(q,&success);
+				        if(success){
+				            tokens[nr_token].type = SYMB;
+				            strcpy(tokens[nr_token].str,q);
+				            nr_token++;
+				        }
+				        break;
 				    }
     				case REG:{
     				    tokens[nr_token].type=rules[i].token_type;
