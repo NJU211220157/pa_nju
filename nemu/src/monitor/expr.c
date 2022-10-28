@@ -135,6 +135,7 @@ static bool make_token(char *e)
 				        bool success;
 				        char q[32];
 				        strncpy(q,substr_start,substr_len);
+				        printf("q = %s\n",q);
 				        look_up_symtab(q,&success);
 				        if(success){
 				            tokens[nr_token].type = SYMB;
