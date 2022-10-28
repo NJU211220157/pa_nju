@@ -130,7 +130,7 @@ static bool make_token(char *e)
 				{
 				    case SYMB:{
 				        bool success;
-				        char* q;
+				        char q[32];
 				        for(int j=0;j<substr_len;j++){
                             q[j]=substr_start[j];
                         }
