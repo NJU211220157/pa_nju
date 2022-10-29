@@ -115,6 +115,31 @@ p_error:
 	return 0;
 }
 
+cmd_handler(cmd_ph)
+{
+	if (args == NULL)
+	{
+		goto p_error;
+	}
+	//if(args + strspn(args, " ") >= cmd_end) { goto p_error; }
+
+	bool success;
+	uint32_t val = expr(args, &success);
+	if (!success)
+	{
+		printf("invalid expression: '%s'\n", args);
+	}
+	else
+	{
+		printf("%x\n", val);
+	}
+	return 0;
+
+p_error:
+	puts("Command format: \"p EXPR\"");
+	return 0;
+}
+
 uint32_t look_up_fun_symtab(char *, bool *);
 
 //static void cmd_b(char *e, char *cmd_end) {
@@ -230,6 +255,7 @@ static struct
 	{"c", "Continue the execution of the program", cmd_c},
 	{"q", "Exit NEMU", cmd_q},
 	{"p", "Evaluate an expression", cmd_p},
+	{"ph","Evaluate an expression with HEX", cmd_ph},
 	{"b", "Set breakpoint", cmd_b},
 	{"w", "Set watchpoint", cmd_w},
 	{"d", "Delete breakpoint(s).", cmd_d},
