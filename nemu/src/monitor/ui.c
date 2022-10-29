@@ -132,6 +132,46 @@ x_error:
 	return 0;
 }
 
+cmd_handler(cmd_xh)
+{
+	if (args == NULL)
+	{
+		goto x_error;
+	}
+	//if(args + strspn(args, " ") >= cmd_end) { goto p_error; }
+    char * first_arg = strtok(NULL," ");
+    uint32_t N_bytes = atoi(first_arg);
+    
+    args = strtok(NULL," ");
+    
+    if(args == NULL)
+    {
+        goto x_error;
+    }
+    
+	bool success;
+	uint32_t addr = expr(args, &success);
+	if (!success)
+	{
+		printf("invalid expression: '%s'\n", args);
+	}
+	else
+	{
+	    while(N_bytes > 0){
+    	    uint32_t val = vaddr_read(addr, SREG_CS, 4);
+    		printf("0x%x ", val);
+    		addr += 1;
+    		N_bytes--;
+	    }
+	    printf("\n");
+	}
+	return 0;
+
+x_error:
+	puts("Command format: \"x N EXPR\"");
+	return 0;
+}
+
 cmd_handler(cmd_p)
 {
 	if (args == NULL)
@@ -306,7 +346,8 @@ static struct
 	{"si", "Single Step Execution", cmd_si},
 	{"info", "Print register and watch point info", cmd_info},
 	{"x","Scan the memory",cmd_x},
-    {"ph","Evaluate an expression with HEX", cmd_ph},
+    {"xh","Scan the memory in HEX",cmd_xh},
+    {"ph","Evaluate an expression in HEX", cmd_ph},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
