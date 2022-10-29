@@ -2,6 +2,7 @@
 #include "monitor/ui.h"
 #include "monitor/breakpoint.h"
 #include "cpu/cpu.h"
+#include "memory/memory.h"
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -90,6 +91,33 @@ cmd_handler(cmd_info)
 }
 
 // static void cmd_p(char *e, char *cmd_end) {
+
+cmd_handler(cmd_x)
+{
+	if (args == NULL)
+	{
+		goto x_error;
+	}
+	//if(args + strspn(args, " ") >= cmd_end) { goto p_error; }
+
+	bool success;
+	uint32_t addr = expr(args, &success);
+	if (!success)
+	{
+		printf("invalid expression: '%s'\n", args);
+	}
+	else
+	{
+	    uint32_t val = vaddr_read(addr, SREG_CS, 4);
+		printf("%d\n", val);
+	}
+	return 0;
+
+x_error:
+	puts("Command format: \"p EXPR\"");
+	return 0;
+}
+
 cmd_handler(cmd_p)
 {
 	if (args == NULL)
@@ -259,6 +287,7 @@ static struct
 	{"b", "Set breakpoint", cmd_b},
 	{"w", "Set watchpoint", cmd_w},
 	{"d", "Delete breakpoint(s).", cmd_d},
+	{"x","Scan the memory",cmd_x},
 	{"exit", "Exit NEMU", cmd_q},
 
 	/* TODO: Add more commands */
