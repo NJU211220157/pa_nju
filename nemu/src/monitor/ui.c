@@ -104,6 +104,11 @@ cmd_handler(cmd_x)
     
     args = strtok(NULL," ");
     
+    if(args == NULL)
+    {
+        goto x_error;
+    }
+    
 	bool success;
 	uint32_t addr = expr(args, &success);
 	if (!success)
