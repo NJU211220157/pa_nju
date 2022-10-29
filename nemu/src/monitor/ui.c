@@ -128,7 +128,7 @@ cmd_handler(cmd_x)
 	return 0;
 
 x_error:
-	puts("Command format: \"p EXPR\"");
+	puts("Command format: \"x N EXPR\"");
 	return 0;
 }
 
