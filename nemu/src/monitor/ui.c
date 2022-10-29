@@ -115,7 +115,7 @@ cmd_handler(cmd_x)
 	    while(N_bytes > 0){
     	    uint32_t val = vaddr_read(addr, SREG_CS, 4);
     		printf("%d ", val);
-    		add += 4;
+    		addr += 4;
     		N_bytes--;
 	    }
 	    printf("\n");
