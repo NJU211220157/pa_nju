@@ -99,7 +99,11 @@ cmd_handler(cmd_x)
 		goto x_error;
 	}
 	//if(args + strspn(args, " ") >= cmd_end) { goto p_error; }
-
+    char * first_arg = strtok(NULL," ");
+    uint32_t N_bytes = atoi(first_arg);
+    
+    args = strtok(NULL," ");
+    
 	bool success;
 	uint32_t addr = expr(args, &success);
 	if (!success)
@@ -108,8 +112,13 @@ cmd_handler(cmd_x)
 	}
 	else
 	{
-	    uint32_t val = vaddr_read(addr, SREG_CS, 4);
-		printf("%d\n", val);
+	    while(N_bytes > 0){
+    	    uint32_t val = vaddr_read(addr, SREG_CS, 4);
+    		printf("%d ", val);
+    		add += 4;
+    		N_bytes--;
+	    }
+	    printf("\n");
 	}
 	return 0;
 
@@ -283,17 +292,16 @@ static struct
 	{"c", "Continue the execution of the program", cmd_c},
 	{"q", "Exit NEMU", cmd_q},
 	{"p", "Evaluate an expression", cmd_p},
-	{"ph","Evaluate an expression with HEX", cmd_ph},
 	{"b", "Set breakpoint", cmd_b},
 	{"w", "Set watchpoint", cmd_w},
 	{"d", "Delete breakpoint(s).", cmd_d},
-	{"x","Scan the memory",cmd_x},
 	{"exit", "Exit NEMU", cmd_q},
 
 	/* TODO: Add more commands */
 	{"si", "Single Step Execution", cmd_si},
 	{"info", "Print register and watch point info", cmd_info},
-
+	{"x","Scan the memory",cmd_x},
+    {"ph","Evaluate an expression with HEX", cmd_ph},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
