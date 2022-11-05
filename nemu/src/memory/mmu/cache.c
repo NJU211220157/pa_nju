@@ -59,7 +59,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
 	        else{
-	            uint32_t* res_addr = &res;
+	            uint32_t res_addr = &res;
 	            memcpy(res_addr, cache[set_index][i].data+block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
