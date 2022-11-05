@@ -22,9 +22,9 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	uint32_t set_index = (paddr >> 6) % 128;
 	uint32_t tag_bits = paddr >> 13; //6+7
     bool across = 0;
-/*	if(block_offset + len > 64){//跨行了，需要分开访问cache行
+	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
-	}*/
+	}
 	memcpy(hw_mem + paddr, &data, len);//write through and not write allocate
 	for(int i=0; i<8; i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
