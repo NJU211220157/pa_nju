@@ -67,7 +67,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	}
 	if(!found){
 	    for(int i=0;i<8;i++){
-	        if(cache[set_index[i].valid_bit == 0){
+	        if(cache[set_index][i].valid_bit == 0){
 	            cache[set_index][i].valid_bit = 1;
 	            cache[set_index][i].tags = tag_bits;
 	            if(!across)
