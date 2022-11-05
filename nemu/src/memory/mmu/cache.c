@@ -58,10 +58,11 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
-	        if(block_offset + len > 64){
+	        else{
 	            memcpy(&res, cache[set_index][i].data+block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	            memcpy(&res + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
+	            uint32_t len_next_line = 64 - block_offset;
+	            memcpy(&res + len_next_line, cache[set_index][i].data, len + block_offset - 64);
 	        }
 	        found = 1;
 	    }
