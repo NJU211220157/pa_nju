@@ -32,12 +32,13 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	            memcpy(cache[set_index][i].data + block_offset, &data, len);
 	        }
 	        else{
-	            memcpy(cache[set_index][i].data + block_offset, &data, 64 - block_offset);
+	            uint8_t* data_addr = (void *)&data;
+	            memcpy(cache[set_index][i].data + block_offset, data_addr, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            tag_bits = (paddr + 64 - block_offset) >> 13;
 	            cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	            cache[set_index][i].tags = tag_bits;
-	            memcpy(cache[set_index][i].data, &data + 64 - block_offset , block_offset + len - 64);//写要如何处理跨行的情况
+	            memcpy(cache[set_index][i].data, data_addr + 64 - block_offset , block_offset + len - 64);//写要如何处理跨行的情况
 	        }
 	    }
 	}
