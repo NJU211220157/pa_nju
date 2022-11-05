@@ -53,9 +53,9 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	uint32_t set_index = (paddr >> 6) & 0x7F;//中间的七位
 	uint32_t tag_bits = paddr >> 13; //6+7
     bool across = 0;
-	if(block_offset + len > 64){//跨行了，需要分开访问cache行
+/*	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
-	}
+	}*/
 	for(int i=0;i<8;i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
