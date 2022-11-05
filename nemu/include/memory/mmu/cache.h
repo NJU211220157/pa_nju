@@ -5,6 +5,12 @@
 
 #ifdef CACHE_ENABLED
 
+typedef struct{
+    int valid_bit;//有效位
+    uint32_t tags;//标记位
+    uint8_t data[64];//一个cache block的大小为64B
+}CacheLine;
+
 // init the cache
 void init_cache();
 
