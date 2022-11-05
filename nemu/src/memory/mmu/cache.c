@@ -24,8 +24,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	}
 	memcpy(hw_mem + paddr, &data, len);//write through
 	for(int i=0; i<8; i++){
-	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tag == tag_bits){
-	        found = 1;
+	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across){
 	            memcpy(cache[set_index][i].data + block_offset, &data, len);
 	        }
