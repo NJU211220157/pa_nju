@@ -95,7 +95,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            return res;
 	        }
 	    }
-	    int i = 0;//随机一个cache行
+	    int i = 5;//随机一个cache行
     	if(!across)
             memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
     	else{
