@@ -3,7 +3,6 @@
 
 #include "nemu.h"
 
-#ifdef CACHE_ENABLED
 
 typedef struct{
     int valid_bit;//有效位
