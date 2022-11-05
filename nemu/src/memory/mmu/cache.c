@@ -58,7 +58,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	}*/
 	for(int i=0;i<8;i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
-	        if(!across)//没有出现跨行的情况
+	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
 	        else{
 	            uint8_t* res_addr = (void *)&res;
@@ -69,25 +69,22 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        found = 1;
 	    }
 	}
-	if(!found){//没有匹配的cache行，需要访问主存
+	if(!found){
 	    for(int i=0;i<8;i++){
 	        if(cache[set_index][i].valid_bit == 0){
 	            cache[set_index][i].valid_bit = 1;
 	            cache[set_index][i].tags = tag_bits;
-	            if(!across){
-	                res = hw_mem_read(paddr,len);
-	                hw_mem_write(cache[set_index][i].data + block_offset, len, res);
-	            }
+	            if(!across)
+	                memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,len);
 	            else{
-	                res = hw_mem_read(paddr,len);
-	                hw_mem_write(cache[set_index][i].data + block_offset, 64 - block_offset, res);
+	                memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,64 - block_offset);
 	                set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	                tag_bits = (paddr + 64 - block_offset) >> 13;
 	                cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	                cache[set_index][i].tags = tag_bits;
 	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,len + block_offset - 64);
 	            }
-	            return res;
+	            return cache_read(paddr,len);
 	        }
 	    }
 	    int i = rand() % 8;//随机一个cache行
