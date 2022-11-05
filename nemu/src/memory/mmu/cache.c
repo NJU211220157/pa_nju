@@ -49,13 +49,13 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     uint32_t res = 0;bool found = 0;
-    uint32_t block_offset = paddr % 64;//低6位
-	uint32_t set_index = (paddr >> 6) % 128;
+    uint32_t block_offset = paddr & 0x3F;//低6位
+	uint32_t set_index = (paddr >> 6) & 0x7F;//中间的七位
 	uint32_t tag_bits = paddr >> 13; //6+7
     bool across = 0;
-	if(block_offset + len > 64){//跨行了，需要分开访问cache行
+/*	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
-	}
+	}*/
 	for(int i=0;i<8;i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
@@ -71,7 +71,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	}
 	if(!found){
 	    for(int i=0;i<8;i++){
-	        if(cache[set_index][i].valid_bit == 0){
+	        if(cache[set_index][i].valid_bit == 0){ //存在空闲行
 	            cache[set_index][i].valid_bit = 1;
 	            cache[set_index][i].tags = tag_bits;
 	            if(!across)
@@ -84,7 +84,8 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	                cache[set_index][i].tags = tag_bits;
 	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,len + block_offset - 64);
 	            }
-	            return cache_read(paddr,len);
+	            memcpy(&res , hw_mem + paddr, len);
+	            return res;
 	        }
 	    }
 	    int i = rand() % 8;//随机一个cache行
@@ -98,7 +99,8 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        cache[set_index][i].tags = tag_bits;
     	    memcpy(cache[set_index][i].data, hw_mem + paddr + 64 - block_offset ,len + block_offset - 64);
     	}
-    	 return cache_read(paddr,len);
+    	memcpy(&res , hw_mem + paddr, len);
+	    return res;
 	}
 	return res;
 }
