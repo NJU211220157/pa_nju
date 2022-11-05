@@ -22,7 +22,7 @@ make_instr_func(lea)
     }
     
     
-    print_asm_2("lea", "", 1 + 2*(data_size / 8), &r,&rm);
+    print_asm_2("lea", "", 1 + 2*(data_size / 8), &rm,&r);
     
     operand_write(&r);
     
