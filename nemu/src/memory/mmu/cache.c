@@ -53,9 +53,9 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	uint32_t set_index = (paddr >> 6) & 0x7F;//中间的七位
 	uint32_t tag_bits = paddr >> 13; //6+7
     bool across = 0;
-/*	if(block_offset + len > 64){//跨行了，需要分开访问cache行
+	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
-	}*/
+	}
 	for(int i=0;i<8;i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
@@ -75,14 +75,14 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            cache[set_index][i].valid_bit = 1;
 	            cache[set_index][i].tags = tag_bits;
 	            if(!across)
-	                memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,len);
+	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64);
 	            else{
-	                memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,64 - block_offset);
+	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64 );
 	                set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	                tag_bits = (paddr + 64 - block_offset) >> 13;
 	                cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	                cache[set_index][i].tags = tag_bits;
-	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,len + block_offset - 64);
+	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,64);
 	            }
 	            memcpy(&res , hw_mem + paddr, len);
 	            return res;
@@ -92,12 +92,12 @@ uint32_t cache_read(paddr_t paddr, size_t len)
     	if(!across)
             memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,len);
     	else{
-    	    memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,64 - block_offset);
-    	    set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-    	    tag_bits = (paddr + 64 - block_offset) >> 13;
-    	    cache[set_index][i].valid_bit = 1;
+    	    memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64 );
+	        set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
+	        tag_bits = (paddr + 64 - block_offset) >> 13;
+	        cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	        cache[set_index][i].tags = tag_bits;
-    	    memcpy(cache[set_index][i].data, hw_mem + paddr + 64 - block_offset ,len + block_offset - 64);
+	        memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,64);
     	}
     	memcpy(&res , hw_mem + paddr, len);
 	    return res;
