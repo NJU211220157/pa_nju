@@ -58,7 +58,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
-	        else{
+	        if(block_offset + len > 64){
 	            memcpy(&res, cache[set_index][i].data+block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            memcpy(&res + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
