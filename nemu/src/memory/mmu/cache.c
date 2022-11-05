@@ -33,6 +33,8 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	        }
 	        else{
 	            //uint8_t* data_addr = (void *)&data;
+	            
+	            //选择将data所在的整个block写进cache行里面
 	            memcpy(cache[set_index][i].data , hw_mem + paddr - block_offset , 64);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            tag_bits = (paddr + 64 - block_offset) >> 13;
@@ -93,7 +95,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            return res;
 	        }
 	    }
-	    int i = rand() % 8;//随机一个cache行
+	    int i = 5;//随机一个cache行
     	if(!across)
             memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
     	else{
