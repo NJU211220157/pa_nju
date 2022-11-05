@@ -61,7 +61,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        else{
 	            memcpy(&res, cache[set_index][i].data+block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	            memcpy(&res , cache[set_index][i].data, len + block_offset - 64);
+	            memcpy(&res + 1, cache[set_index][i].data, len + block_offset - 64);
 	        }
 	        found = 1;
 	    }
