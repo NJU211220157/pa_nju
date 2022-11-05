@@ -88,6 +88,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	                cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	                cache[set_index][i].tags = tag_bits;
 	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset, 64);
+	                return cache_read(paddr,len);
 	            }
 	            memcpy(&res , hw_mem + paddr, len);
 	            return res;
@@ -103,6 +104,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	        cache[set_index][i].tags = tag_bits;
 	        memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset, 64);
+	        return cache_read(paddr,len);
     	}
     	memcpy(&res , hw_mem + paddr, len);
 	    return res;
