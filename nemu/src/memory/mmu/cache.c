@@ -77,8 +77,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	    }
 	}
 	if(!found){
-	    int i = 0;
-	    for(i=0;i<8;i++){
+	    for(int i = 0;i<8;i++){
 	        if(cache[set_index][i].valid_bit == 0){ //存在空闲行
 	            cache[set_index][i].valid_bit = 1;
 	            cache[set_index][i].tags = tag_bits;
@@ -97,6 +96,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        }
 	    }
 	    //int i = rand();//随机一个cache行
+	    int i=7;
     	if(!across)
             memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
     	else{
