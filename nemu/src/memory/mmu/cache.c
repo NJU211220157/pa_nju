@@ -62,7 +62,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
 	        else{
 	            /*uint8_t* res_addr = (void *)&res;
-	            memcpy(res_addr, cache[set_index][i].data+block_offset, 64 - block_offset);
+	            memcpy(res_addr, cache[set_index][i].data + block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);*/
 	            
@@ -78,14 +78,14 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            cache[set_index][i].valid_bit = 1;
 	            cache[set_index][i].tags = tag_bits;
 	            if(!across)
-	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64);
+	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
 	            else{
-	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64 );
+	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64 );
 	                set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	                tag_bits = (paddr + 64 - block_offset) >> 13;
 	                cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	                cache[set_index][i].tags = tag_bits;
-	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,64);
+	                memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset, 64);
 	            }
 	            memcpy(&res , hw_mem + paddr, len);
 	            return res;
@@ -93,7 +93,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	    }
 	    int i = rand() % 8;//随机一个cache行
     	if(!across)
-            memcpy(cache[set_index][i].data + block_offset,hw_mem + paddr,len);
+            memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
     	else{
     	    memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64 );
 	        set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
