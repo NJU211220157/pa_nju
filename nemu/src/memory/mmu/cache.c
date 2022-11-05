@@ -55,6 +55,8 @@ uint32_t cache_read(paddr_t paddr, size_t len)
     bool across = 0;
 	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
+	    memcpy(&res , hw_mem + paddr, len);
+	    return res;
 	}
 	for(int i=0;i<8;i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
