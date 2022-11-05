@@ -55,18 +55,19 @@ uint32_t cache_read(paddr_t paddr, size_t len)
     bool across = 0;
 	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
-	    memcpy(&res , hw_mem + paddr, len);
-	    return res;
 	}
 	for(int i=0;i<8;i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
 	        else{
-	            uint8_t* res_addr = (void *)&res;
+	            /*uint8_t* res_addr = (void *)&res;
 	            memcpy(res_addr, cache[set_index][i].data+block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
+	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);*/
+	            
+	            memcpy(&res , hw_mem + paddr, len);
+	            return res;
 	        }
 	        found = 1;
 	    }
@@ -99,7 +100,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        tag_bits = (paddr + 64 - block_offset) >> 13;
 	        cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
 	        cache[set_index][i].tags = tag_bits;
-	        memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset,64);
+	        memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset, 64);
     	}
     	memcpy(&res , hw_mem + paddr, len);
 	    return res;
