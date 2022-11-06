@@ -96,12 +96,12 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            return res;
 	        }
 	    }
-	    //int i = rand();//随机一个cache行
+	    //int i = rand() % 8;//随机一个cache行
 	    int i = 7;
     	if(!across)
             memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
     	else{
-    	    memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset ,64 );
+    	    memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
 	        set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	        tag_bits = (paddr + 64 - block_offset) >> 13;
 	        cache[set_index][i].valid_bit = 1;
