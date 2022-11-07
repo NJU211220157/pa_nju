@@ -61,7 +61,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	if(block_offset + len > 64){//跨行了，需要分开访问cache行
 	    across = 1;
 	}
-	for(int i=0;i<8;i++){
+	for(int i = 0; i < 8; i++){
 	    if(cache[set_index][i].valid_bit == 1 && cache[set_index][i].tags == tag_bits){
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
@@ -72,8 +72,8 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            }result;
 	            memset(&result,0,4);
 	            memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
-	            set_index = (set_index + (i + 1)/8) & 0x7F;   i = (i + 1) & 0x7;
-	            memcpy(result.byte + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
+	            //set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
+	            memcpy(result.byte + 64 - block_offset, cache[set_index][i].data + 72, len + block_offset - 64);
 	            return result.data;
 	            
 	            memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
