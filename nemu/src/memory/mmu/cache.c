@@ -66,12 +66,12 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
 	        else{
-	            /*uint8_t* res_addr = (void *)&res;
+	            uint8_t* res_addr = (void *)&res;//取结果的首地址
 	            memcpy(res_addr, cache[set_index][i].data + block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);*/
+	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
 	            
-	            memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
+	            //memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
 	            return res;
 	        }
 	        found = 1;
