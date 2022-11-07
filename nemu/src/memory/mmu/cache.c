@@ -70,7 +70,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	                uint32_t data;
 	                char byte[4];
 	            }result;
-	            memcpy(result, cache[set_index][i].data + block_offset, 64 - block_offset);
+	            memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            memcpy(result.byte + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
 	            
