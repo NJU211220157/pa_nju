@@ -68,7 +68,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        else{
 	            union{
 	                uint32_t data;
-	                char byte[4] = { 0 };
+	                char byte[4]={0};
 	            }result;
 	            memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
