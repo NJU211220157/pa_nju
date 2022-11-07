@@ -71,7 +71,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
 	            memcpy(res_addr + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
 	            
-	            //memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
+	            memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
 	            return res;
 	        }
 	        found = 1;
