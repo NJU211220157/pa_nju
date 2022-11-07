@@ -66,13 +66,14 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        if(!across)
 	            memcpy(&res, cache[set_index][i].data + block_offset, len);
 	        else{
-	            /*union{
+	            union{
 	                uint32_t data;
-	                char byte[4];
+	                char byte[4] = { 0 };
 	            }result;
 	            memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
 	            set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	            memcpy(result.byte + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);*/
+	            memcpy(result.byte + 64 - block_offset, cache[set_index][i].data, len + block_offset - 64);
+	            return result.data;
 	            
 	            memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
 	            return res;
