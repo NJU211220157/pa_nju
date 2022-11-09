@@ -102,15 +102,23 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	    }
 	    //int i = rand() % 8;//随机一个cache行
 	    int i = rand() % 8;
-    	if(!across)
-            memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
-    	else{
-    	    memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
-	        set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	        tag_bits = (paddr + 64 - block_offset) >> 13;
-	        cache[set_index][i].valid_bit = 1;
+    	if(!across){
+    	    cache[set_index][i].valid_bit = 1;
 	        cache[set_index][i].tags = tag_bits;
-	        memcpy(cache[set_index][i].data,hw_mem + paddr + 64 - block_offset, 64);
+            memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
+    	}
+    	else{
+    	    union{
+    	        uint32_t data;
+    	        char byte[4];
+	        }result;
+    	    cache[set_index][i].valid_bit = 1;
+	        cache[set_index][i].tags = tag_bits;
+    	    memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);//需要读整行
+	        memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
+	        uint32_t sec_res = cache_read(paddr + 64 - block_offset, len + block_offset - 64 );
+	        memcpy(result.byte + 64 - block_offset , &sec_res , len + block_offset - 64);
+	        return result.data;
     	}
     	memcpy(&res , hw_mem + paddr, len);
 	    return res;
