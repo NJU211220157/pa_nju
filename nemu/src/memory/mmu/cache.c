@@ -89,12 +89,15 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            if(!across)
 	                memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
 	            else{
+	                union{
+            	        uint32_t data;
+            	        char byte[4];
+	                }result;
 	                memcpy(cache[set_index][i].data , hw_mem + paddr - block_offset , 64 );//将整行都写进cache里面
-	                set_index = (set_index + (i + 1)/8) % 128;   i = (i + 1) % 8;
-	                tag_bits = (paddr + 64 - block_offset) >> 13;
-	                cache[set_index][i].valid_bit = 1;//更新组号和行号后设置标志位
-	                cache[set_index][i].tags = tag_bits;
-	                memcpy(cache[set_index][i].data , hw_mem + paddr + 64 - block_offset, 64);
+        	        memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
+        	        uint32_t sec_res = cache_read(paddr + 64 - block_offset, len + block_offset - 64 );//读取第二块的内容
+        	        memcpy(result.byte + 64 - block_offset , &sec_res , len + block_offset - 64);
+        	        return result.data;
 	            }
 	            memcpy(&res , hw_mem + paddr, len);
 	            return res;
