@@ -5,7 +5,7 @@
 
 // define the structure of registers
 
-typedef struct{
+typedef struct {
     uint32_t limit :16;
     uint32_t base :32;
 }GDTR;
@@ -19,7 +19,7 @@ typedef union{
         uint32_t et : 1;
         uint32_t reserve : 26;
         uint32_t pg : 1;
-    }
+    };
     uint32_t val;
 }CR0;
 
@@ -32,7 +32,7 @@ typedef{
           uint32_t ti : 1;
           uint32_t index : 13;
         };
-    }
+    };
     
     //隐藏部分，存储段描述符的内容
     struct{
