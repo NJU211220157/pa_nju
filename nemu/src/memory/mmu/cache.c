@@ -32,11 +32,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 	            memcpy(cache[set_index][i].data + block_offset, &data, len);
 	        }
 	        else{
-	            uint8_t* data_addr = (void *)&data;
-	            
-	            //选择将data所在的整个block写进cache行里面
-	            //memcpy(cache[set_index][i].data , hw_mem + paddr - block_offset , 64);
-	            memcpy(cache[set_index][i].data + block_offset, data_addr , 64 - block_offset);
+	            memcpy(cache[set_index][i].data + block_offset, &data , 64 - block_offset);
 	            cache_write(paddr + 64 - block_offset, len + block_offset - 64 , data>> ((64 - block_offset)*4) );
 	        }
 	    }
