@@ -10,7 +10,7 @@ typedef struct {
     uint32_t base :32;
 }GDTR;
 
-typedef union{
+typedef union {
     struct{
         uint32_t pe : 1;
         uint32_t mp : 1;
@@ -24,7 +24,7 @@ typedef union{
 }CR0;
 
 
-typedef{
+typedef struct {
     union{
         uint16_t val;
         struct{
