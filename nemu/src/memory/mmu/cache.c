@@ -77,9 +77,6 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            uint32_t sec_res = cache_read(paddr , len + block_offset - 64);
 	            memcpy(result.byte + 64 - block_offset, &sec_res, len + block_offset - 64);
 	            return result.data;
-	            
-	            memcpy(&res , hw_mem + paddr, len);//跨行情况下不知道怎么读cache line
-	            return res;
 	        }
 	        found = 1;
 	    }
@@ -104,7 +101,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        }
 	    }
 	    //int i = rand() % 8;//随机一个cache行
-	    int i = 7;
+	    int i = rand() % 8;
     	if(!across)
             memcpy(cache[set_index][i].data ,hw_mem + paddr - block_offset , 64);
     	else{
