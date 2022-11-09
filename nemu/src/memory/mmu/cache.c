@@ -74,7 +74,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	            memset(&result,0,4);
 	            memcpy(&result, cache[set_index][i].data + block_offset, 64 - block_offset);
 	            paddr += 64 - block_offset;//更新paddr
-	            uint32_t sec_res = cache(paddr , len + block_offset - 64);
+	            uint32_t sec_res = cache_read(paddr , len + block_offset - 64);
 	            memcpy(result.byte + 64 - block_offset, &sec_res, len + block_offset - 64);
 	            return result.data;
 	            
