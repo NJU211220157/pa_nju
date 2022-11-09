@@ -95,6 +95,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 	        }
 	    }
 	    int i = rand() % 8;
+	    printf("i == %d",i);
     	if(!across){
     	    cache[set_index][i].valid_bit = 1;
 	        cache[set_index][i].tags = tag_bits;
