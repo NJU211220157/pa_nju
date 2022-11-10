@@ -24,7 +24,7 @@ void load_sreg(uint8_t sreg)
 	 base2 = segDesc->base_23_16 << 16;
 	 base3 = segDesc->base_31_24 << 24;
 	 cpu.segReg[sreg].base = base1 + base2 + base3 ;
-	 cpu.segReg[sreg].limit = segDesc->limit_15_0 + (segReg->limit_19_16 << 16);
+	 cpu.segReg[sreg].limit = segDesc->limit_15_0 + (segDesc->limit_19_16 << 16);
 	 cpu.segReg[sreg].type = segDesc->type;
 	 cpu.segReg[sreg].privilege_level = segDesc->privilege_level;
 	 cpu.segReg[sreg].soft_use = segDesc->soft_use;
