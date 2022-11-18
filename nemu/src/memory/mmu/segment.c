@@ -7,6 +7,8 @@ uint32_t segment_translate(uint32_t offset, uint8_t sreg)
 	/* TODO: perform segment translation from virtual address to linear address
 	 * by reading the invisible part of the segment register 'sreg'
 	 */
+	assert(sreg >= 0);
+	assert(sreg <= 5);
 	uint32_t base_ = cpu.segReg[sreg].base;
 	return offset + base_;
 }
@@ -17,6 +19,8 @@ void load_sreg(uint8_t sreg)
 	/* TODO: load the invisibile part of the segment register 'sreg' by reading the GDT.
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
+	 assert(sreg >= 0);
+  	 assert(sreg <= 5);
 	 uint32_t index = cpu.segReg[sreg].index;
 	 SegDesc* segDesc = (void *)(cpu.gdtr.base + index * 8);//段表首地址
 	 uint32_t base1, base2, base3;
