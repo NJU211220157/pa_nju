@@ -22,7 +22,8 @@ void load_sreg(uint8_t sreg)
 	 assert(sreg >= 0);
   	 assert(sreg <= 5);
 	 uint32_t index = cpu.segReg[sreg].index;
-	 SegDesc* segDesc = (void *)(cpu.gdtr.base + index * 8);//段表首地址
+	 SegDesc* segDesc = (void *)(cpu.gdtr.base + index * 64);//段表首地址
+	 //uint32_t first_addr = cpu.gdtr.base + index * 64;
 	 uint32_t base1, base2, base3;
 	 base1 = segDesc->base_15_0;
 	 base2 = segDesc->base_23_16 << 16;
@@ -33,3 +34,7 @@ void load_sreg(uint8_t sreg)
 	 cpu.segReg[sreg].privilege_level = segDesc->privilege_level;
 	 cpu.segReg[sreg].soft_use = segDesc->soft_use;
 }
+
+
+
+
