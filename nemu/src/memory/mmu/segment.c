@@ -22,18 +22,31 @@ void load_sreg(uint8_t sreg)
 	 assert(sreg >= 0);
   	 assert(sreg <= 5);
 	 uint32_t index = cpu.segReg[sreg].index;
-	 SegDesc* segDesc = (void *)(cpu.gdtr.base + index * 64);//段表首地址
-	 //uint32_t first_addr = cpu.gdtr.base + index * 64;
-	 uint32_t base1, base2, base3;
-	 base1 = segDesc->base_15_0;
-	 base2 = segDesc->base_23_16 << 16;
-	 base3 = segDesc->base_31_24 << 24;
-	 cpu.segReg[sreg].base = base1 + base2 + base3 ;
-	 cpu.segReg[sreg].limit = segDesc->limit_15_0 + (segDesc->limit_19_16 << 16);
-	 cpu.segReg[sreg].type = segDesc->type;
-	 cpu.segReg[sreg].privilege_level = segDesc->privilege_level;
-	 cpu.segReg[sreg].soft_use = segDesc->soft_use;
+	 uint32_t addr = (void *)(cpu.gdtr.base + index * 64);
+	 
+	 uint32_t base1, base2;
+	 memcpy(&base1,(void *) (addr + 16),3);
+	 memcpy(&base2,(void *) (addr + 56),1);
+	 cpu.segReg[sreg].base = base1  + (base2<<24) ;
+	 
+	 uint32_t limit1,limit2;
+	 memcpy(&limit1,(void *) addr , 2);
+	 memcpy(&limit2,(void *) (addr + 48) , 1);
+	 cpu.segReg[sreg].limit = limit1 + (limit2<<28)>>12;
+	 
+	 uint32_t type1;
+	 memcpy(&type1,(void *)(addr + 40),1);
+	 cpu.segReg[sreg].type = type1 & 0xf;
+
 }
+
+
+
+
+
+
+
+
 
 
 
