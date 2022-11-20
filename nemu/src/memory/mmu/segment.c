@@ -21,8 +21,8 @@ void load_sreg(uint8_t sreg)
 	 */
 	 
 	 
-	 uint32_t index = cpu.segReg[sreg].index;
-	 uint32_t addr = (cpu.gdtr.base + index * 8);
+/*	 uint32_t index = cpu.segReg[sreg].index;
+	 uint32_t addr = (cpu.gdtr.base + index * 8);*/
 	 
 	 
 	 uint32_t base1 = 0, base2 = 0;
