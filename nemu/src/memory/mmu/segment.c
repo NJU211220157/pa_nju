@@ -22,7 +22,7 @@ void load_sreg(uint8_t sreg)
 	 assert(sreg >= 0);
   	 assert(sreg <= 5);
 	 uint32_t index = cpu.segReg[sreg].index;
-	 uint32_t addr = (void *)(cpu.gdtr.base + index * 64);
+	 uint32_t addr = (cpu.gdtr.base + index * 64);
 	 
 	 uint32_t base1, base2;
 	 memcpy(&base1,(void *) (addr + 16),3);
