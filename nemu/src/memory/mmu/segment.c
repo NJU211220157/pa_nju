@@ -32,7 +32,7 @@ void load_sreg(uint8_t sreg)
 	 uint32_t limit1,limit2;
 	 memcpy(&limit1,(void *) addr , 2);
 	 memcpy(&limit2,(void *) (addr + 48) , 1);
-	 cpu.segReg[sreg].limit = limit1 + (limit2<<28)>>12;
+	 cpu.segReg[sreg].limit = limit1 + ((limit2<<28)>>12);
 	 
 	 uint32_t type1;
 	 memcpy(&type1,(void *)(addr + 40),1);
