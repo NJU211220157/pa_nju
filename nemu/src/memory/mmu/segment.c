@@ -36,7 +36,7 @@ void load_sreg(uint8_t sreg)
 	 cpu.segReg[sreg].limit = limit1 + ((limit2 & 0xf) << 16);
 	 cpu.segReg[sreg].limit = 0xffff;
 	 
-	 uint32_t type1 = 0;
+/*	 uint32_t type1 = 0;
 	 memcpy(&type1, (void *) (addr + 5),1);
 	 cpu.segReg[sreg].type = type1 & 0x1f;//取低五位
 	 
@@ -46,7 +46,7 @@ void load_sreg(uint8_t sreg)
 
      uint32_t soft_use1 = 0;
      memcpy(&soft_use1, (void *) (addr + 6), 1);
-     cpu.segReg[sreg].soft_use = soft_use1 & 0x10;  
+     cpu.segReg[sreg].soft_use = soft_use1 & 0x10;  */
 }
 
 
