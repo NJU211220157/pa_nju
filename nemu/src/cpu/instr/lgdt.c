@@ -9,7 +9,7 @@ make_instr_func(lgdt)
     rm.data_size = 16;
     int len = 1;
     
-    len += modrm(eip + 1,&rm);
+    len += modrm_rm(eip + 1,&rm);
     operand_read(&rm);
     cpu.gdtr.limit = rm.val;
     
