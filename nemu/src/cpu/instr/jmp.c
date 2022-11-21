@@ -16,7 +16,7 @@ make_instr_func(jmp_far_imm)
 
     operand_read(&rel);
     uint32_t temp;
-    memcpy(&temp,(void *),eip + 5, 2);
+    temp = instr_fecth(eip + 5 ,2);
     cpu.segReg[1].val = temp;
     load_sreg(1);
     
