@@ -5,7 +5,7 @@ Put the implementations of `lgdt' instructions here.
 
 make_instr_func(lgdt)
 {
-    OPRERAND rm;
+    OPERAND rm;
     rm.data_size = 16;
     int len = 1;
     
