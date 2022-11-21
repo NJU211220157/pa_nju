@@ -21,11 +21,10 @@ void load_sreg(uint8_t sreg)
 	 */
 
 	 
-	 uint32_t index2 = cpu.segReg[sreg].index;
 	 SegDesc segdesc;
-	 uint32_t addr = (cpu.gdtr.base + index2 * sizeof(SegDesc));
 	 
-     memcpy(&segdesc, (void *)addr, sizeof(SegDesc));
+     segdesc.val[0] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc),4);
+     segdesc.val[1] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc) + 4,4);
 	 assert(segdesc.present == 1);
 	 
 	 uint32_t base1 = 0, base2 = 0,base3 = 0;
