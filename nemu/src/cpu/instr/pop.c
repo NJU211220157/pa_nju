@@ -6,6 +6,7 @@ static void instr_execute_1op(){
     
     OPERAND rm;
     
+    rm.sreg = SREG_CS;
     rm.type=OPR_MEM;
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;

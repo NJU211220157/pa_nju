@@ -8,7 +8,8 @@ Put the implementations of `lea' instructions here.
 make_instr_func(lea)
 {
     OPERAND rm,r;
-    
+    rm.sreg = SREG_CS;
+    r.sreg = SREG_CS;
     r.data_size=rm.data_size=data_size;
     
     int len=1;

@@ -8,17 +8,20 @@ make_instr_func(leave)
     OPERAND rbp,rsp;
     
     rbp.type=OPR_REG;
+    rbp.sreg = SREG_CS;
     rbp.addr=0x5;
     rbp.data_size=data_size;
     operand_read(&rbp);
     
     rsp.type=OPR_REG;
     rsp.addr=0x4;
+    rsp.sreg = SREG_CS;
     rsp.data_size=data_size;
     rsp.val=rbp.val;
     operand_write(&rsp);
     
     OPERAND rm;
+    rm.sreg = SREG_CS;
     rm.type=OPR_MEM;
     rm.data_size=data_size;
     rm.addr=rsp.val;
