@@ -24,13 +24,13 @@ void load_sreg(uint8_t sreg)
 	 uint32_t addr = (cpu.gdtr.base + index2 * 8);
 	 
 	 SegDesc segdesc;
-     memcpy(&segdesc,(void *)addr,8);
+     memcpy(&segdesc, (void *)addr, 8);
 	 
 	 uint32_t base1 = 0, base2 = 0,base3 = 0;
 	 base1 = segdesc.base_15_0;
 	 base2 = segdesc.base_23_16;
 	 base3 = segdesc.base_31_24;
-	 cpu.segReg[sreg].base = base1  + + (base2 << 16) + (base3 << 24) ;
+	 cpu.segReg[sreg].base = base1 + (base2 << 16) + (base3 << 24) ;
 	 
 	 uint32_t limit1 = 0,limit2 = 0;
 	 limit1 = segdesc.limit_15_0;
