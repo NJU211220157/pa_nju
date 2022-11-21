@@ -69,7 +69,7 @@ instr_func opcode_entry[256] = {
 };
 
 
-//
+//__ref_mov_c2r_l
 /* 0x80 */
 instr_func group_1_b_entry[8] =
     {add_i2rm_b, or_i2rm_b, adc_i2rm_b, sbb_i2rm_b, and_i2rm_b, sub_i2rm_b, xor_i2rm_b, cmp_i2rm_b};
@@ -161,7 +161,7 @@ instr_func opcode_2_byte_entry[256] = {
     /* 0x14 - 0x17*/ inv, inv, inv, inv,
     /* 0x18 - 0x1b*/ inv, inv, inv, inv,
     /* 0x1c - 0x1f*/ inv, inv, inv, inv,
-    /* 0x20 - 0x23*/ __ref_mov_c2r_l, inv, __ref_mov_r2c_l, inv,
+    /* 0x20 - 0x23*/ mov_c2r_l, inv, __ref_mov_r2c_l, inv,
     /* 0x24 - 0x27*/ inv, inv, inv, inv,
     /* 0x28 - 0x2b*/ inv, inv, inv, inv,
     /* 0x2c - 0x2f*/ inv, inv, inv, inv,
