@@ -20,7 +20,6 @@ void load_sreg(uint8_t sreg)
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
 	 
-	 
 	 uint32_t index2 = cpu.segReg[sreg].index;
 	 uint32_t addr = (cpu.gdtr.base + index2 * 8);
 	 
