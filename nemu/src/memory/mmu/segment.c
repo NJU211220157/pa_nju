@@ -23,7 +23,7 @@ void load_sreg(uint8_t sreg)
 	 SegDesc segdesc;
      segdesc.val[0] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc),4);
      segdesc.val[1] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc) + 4,4);
-	 //assert(segdesc.present == 1);
+	 assert(segdesc.present == 1);
 	 
 	 cpu.segReg[sreg].base = segdesc.base_15_0 + (segdesc.base_23_16 << 16) + (segdesc.base_31_24 << 24);
 	 

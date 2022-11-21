@@ -7,7 +7,9 @@ make_instr_func(jmp_far_imm)
 {
     OPERAND rel;
     data_size = 32;
-    load_sreg(1);
+    for(int i=0;i<6;i++){
+        load_sreg(i);
+    }
     rel.type = OPR_IMM;
     rel.sreg = SREG_CS;
     rel.data_size = data_size;
