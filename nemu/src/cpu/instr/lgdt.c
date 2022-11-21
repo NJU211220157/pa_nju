@@ -16,6 +16,10 @@ make_instr_func(lgdt)
     rm.addr += 2;
     rm.data_size = 32;
     operand_read(&rm);
+    if(data_size == 16){
+        cpu.gdtr.base = rm.val &0xffffff;
+        return len;
+    }
     cpu.gdtr.base = rm.val;
     
     return len;
