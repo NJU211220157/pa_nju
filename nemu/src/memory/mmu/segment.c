@@ -19,12 +19,14 @@ void load_sreg(uint8_t sreg)
 	/* TODO: load the invisibile part of the segment register 'sreg' by reading the GDT.
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
+
 	 
 	 uint32_t index2 = cpu.segReg[sreg].index;
 	 SegDesc segdesc;
 	 uint32_t addr = (cpu.gdtr.base + index2 * sizeof(SegDesc));
 	 
      memcpy(&segdesc, (void *)addr, sizeof(SegDesc));
+	 assert(segdesc.present == 1);
 	 
 	 uint32_t base1 = 0, base2 = 0,base3 = 0;
 	 base1 = segdesc.base_15_0;
