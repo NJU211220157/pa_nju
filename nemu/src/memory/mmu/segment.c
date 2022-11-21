@@ -25,9 +25,9 @@ void load_sreg(uint8_t sreg)
      segdesc.val[1] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc) + 4,4);
 	 assert(segdesc.present == 1);
 	 
-	 cpu.segRegisregl.base = segdesc.base_15_0 + (segdesc.base_23_16 << 16) + (segdesc.base_31_24 << 24);
+	 cpu.segReg[sreg].base = segdesc.base_15_0 + (segdesc.base_23_16 << 16) + (segdesc.base_31_24 << 24);
 	 
-	 cpu.segReg[sregl.limit = segdesc.limit_15_0  + (segdesc.limit_19_16 << 16);
+	 cpu.segReg[sreg].limit = segdesc.limit_15_0  + (segdesc.limit_19_16 << 16);
 	 
 
 }
