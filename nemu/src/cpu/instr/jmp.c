@@ -6,27 +6,14 @@ uint32_t hw_mem_read(paddr_t paddr, size_t len);
 
 make_instr_func(jmp_far_imm)
 {
-    OPERAND rel;
-    data_size = 32;
-    
-    rel.type = OPR_IMM;
-    rel.sreg = SREG_CS;
-    rel.data_size = data_size;
-    rel.addr = eip + 1;
-
-    operand_read(&rel);
-    
     uint32_t temp = hw_mem_read(eip + 5 , 2);
     cpu.segReg[1].val = temp;
     
     load_sreg(1);
     
-    
-    int offset = sign_ext(rel.val, rel.data_size);
+    cpu.eip = instr_fetch(eip + 1 , 4);
 
-    cpu.eip += offset;
-
-    return 1 + data_size / 8 + 1;
+    return 0;
 }
 
 
