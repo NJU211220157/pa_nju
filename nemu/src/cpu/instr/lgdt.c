@@ -5,13 +5,18 @@ Put the implementations of `lgdt' instructions here.
 
 make_instr_func(lgdt)
 {
-    uint32_t rm1,rm2;
-    uint32_t addr = cpu.eip + 2;
+    OPRERAND rm;
+    rm.data_size = 16;
+    int len = 1;
     
-    memcpy(&rm1,(void*) addr, 2);
-    memcpy(&rm2,(void*)(addr + 2),4);
-    cpu.gdtr.limit = rm1;
-    cpu.gdtr.base = rm2;
+    len += modrm(eip + 1,&rm);
+    operand_read(&rm);
+    cpu.gdtr.limit = rm.val;
     
-    return 7;
+    rm.addr += 2;
+    rm.data_size = 32;
+    operand_read(&rm);
+    cpu.gdtr.base = rm.val;
+    
+    return len;
 }
