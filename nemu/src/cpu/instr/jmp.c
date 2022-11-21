@@ -22,11 +22,10 @@ make_instr_func(jmp_far_imm)
     
     int offset = sign_ext(rel.val, rel.data_size);
 
-    print_asm_1("jmp", "", 1 + data_size / 8, &rel);
 
     cpu.eip += offset;
 
-    return 1 + data_size / 8;
+    return 1 + data_size / 8 + 1;
 }
 
 
