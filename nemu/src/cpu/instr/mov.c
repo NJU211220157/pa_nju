@@ -1,5 +1,7 @@
 #include "cpu/instr.h"
 
+void load_sreg(uint8_t sreg);
+
 static void instr_execute_2op() 
 {
 	operand_read(&opr_src);
@@ -19,6 +21,27 @@ make_instr_impl_2op(mov, a, o, b)
 make_instr_impl_2op(mov, a, o, v)
 make_instr_impl_2op(mov, o, a, b)
 make_instr_impl_2op(mov, o, a, v)
+
+
+
+make_instr_func(mov_rm2s_w){
+    int len = 1;
+    
+    OPERAND r,rm;
+    
+    r.data_size = 16;
+    rm.data_size = data_size;
+    len += modrm_r_rm(eip + 1, &r, &rm);
+    
+    operand_read(&rm);
+    r.val = rm.val&0xffff;
+    operand_write(&r);
+    load_sreg(1);
+    
+    print_asm_2("mov", "", len, &rm, &r);
+    
+    return len;
+}
 
 make_instr_func(mov_zrm82r_v) {
 	int len = 1;
