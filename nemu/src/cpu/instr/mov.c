@@ -42,9 +42,9 @@ make_instr_func(mov_c2r_l){
     return len;
 }
 
-make_instr_func(mov_r2c_l){
+/*make_instr_func(mov_r2c_l){
     
-}
+}*/
 
 make_instr_func(mov_rm2s_w){
     int len = 1;
