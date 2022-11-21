@@ -7,16 +7,15 @@ make_instr_func(jmp_far_imm)
 {
     OPERAND rel;
     data_size = 32;
-    for(int i=0;i<6;i++){
-        load_sreg(i);
-    }
+    
     rel.type = OPR_IMM;
     rel.sreg = SREG_CS;
     rel.data_size = data_size;
     rel.addr = eip + 1;
 
     operand_read(&rel);
-
+    load_sreg(1);
+    
     int offset = sign_ext(rel.val, rel.data_size);
         // thank Ting Xu from CS'17 for finding this bug
     print_asm_1("jmp", "", 1 + data_size / 8, &rel);
