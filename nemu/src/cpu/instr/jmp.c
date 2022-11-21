@@ -2,6 +2,7 @@
 
 void load_sreg(uint8_t sreg);
 
+uint32_t hw_mem_read(paddr_t paddr, size_t len);
 
 make_instr_func(jmp_far_imm)
 {
@@ -14,9 +15,10 @@ make_instr_func(jmp_far_imm)
     rel.addr = eip + 1;
 
     operand_read(&rel);
-    uint32_t temp;
-    memcpy(&temp,(void*)(eip + 5), 1);
+    
+    uint32_t temp = hw_mem_read(eip + 5 , 2);
     cpu.segReg[1].val = temp;
+    
     load_sreg(1);
     
     
