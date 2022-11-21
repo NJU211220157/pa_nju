@@ -21,8 +21,8 @@ void load_sreg(uint8_t sreg)
 	 */
 	 
 	 
-	 uint32_t index = cpu.segReg[sreg].index;
-	 uint32_t addr = (cpu.gdtr.base + index * 8);
+	 uint32_t index2 = cpu.segReg[sreg].index;
+	 uint32_t addr = (cpu.gdtr.base + index2 * 8);
 	 
 	 uint32_t base1 = 0, base2 = 0;
 	 memcpy(&base1, (void *) (addr + 2), 3);
@@ -41,11 +41,11 @@ void load_sreg(uint8_t sreg)
 	 
 	 uint32_t privilege_level1 = 0;
 	 memcpy(&privilege_level1,(void *)(addr + 5),1);
-	 cpu.segReg[sreg].privilege_level = privilege_level1 & 0x60;
+	 cpu.segReg[sreg].privilege_level = privilege_level1 & 0x60;//只取第6、7位
 
      uint32_t soft_use1 = 0;
      memcpy(&soft_use1, (void *) (addr + 6), 1);
-     cpu.segReg[sreg].soft_use = soft_use1 & 0x10;  
+     cpu.segReg[sreg].soft_use = soft_use1 & 0x10;  //只取第5位
 }
 
 
