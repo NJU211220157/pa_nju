@@ -1,6 +1,7 @@
 #include "cpu/cpu.h"
 #include "memory/memory.h"
 
+uint32_t hw_mem_read(paddr_t paddr, size_t len);
 // return the linear address from the virtual address and segment selector
 uint32_t segment_translate(uint32_t offset, uint8_t sreg)
 {
