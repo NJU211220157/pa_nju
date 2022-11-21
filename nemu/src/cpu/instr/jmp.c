@@ -5,7 +5,7 @@ void load_sreg(uint8_t sreg);
 
 make_instr_func(jmp_far_imm)
 {
-    OPERAND rel,rm;
+    OPERAND rel;
     data_size = 32;
     
     rel.type = OPR_IMM;
