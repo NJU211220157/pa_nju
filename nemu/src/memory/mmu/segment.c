@@ -21,22 +21,22 @@ void load_sreg(uint8_t sreg)
 	 */
 	 
 	 
-/*	 uint32_t index = cpu.segReg[sreg].index;
-	 uint32_t addr = (cpu.gdtr.base + index * 8);*/
+	 uint32_t index = cpu.segReg[sreg].index;
+	 uint32_t addr = (cpu.gdtr.base + index * 8);*
 	 
 	 
 	 uint32_t base1 = 0, base2 = 0;
-/*	 memcpy(&base1, (void *) (addr + 2), 3);
-	 memcpy(&base2, (void *) (addr + 7), 1);*/
+	 memcpy(&base1, (void *) (addr + 2), 3);
+	 memcpy(&base2, (void *) (addr + 7), 1);
 	 cpu.segReg[sreg].base = base1  + (base2 << 24) ;
 	 
 	 uint32_t limit1 = 0,limit2 = 0;
-/*	 memcpy(&limit1, (void *) addr , 2);
-	 memcpy(&limit2, (void *) (addr + 6) , 1);*/
+	 memcpy(&limit1, (void *) addr , 2);
+	 memcpy(&limit2, (void *) (addr + 6) , 1);
 	 cpu.segReg[sreg].limit = limit1 + ((limit2 & 0xf) << 16);
 	 cpu.segReg[sreg].limit = 0xffff;
 	 
-/*	 uint32_t type1 = 0;
+	 uint32_t type1 = 0;
 	 memcpy(&type1, (void *) (addr + 5),1);
 	 cpu.segReg[sreg].type = type1 & 0x1f;//取低五位
 	 
@@ -46,7 +46,7 @@ void load_sreg(uint8_t sreg)
 
      uint32_t soft_use1 = 0;
      memcpy(&soft_use1, (void *) (addr + 6), 1);
-     cpu.segReg[sreg].soft_use = soft_use1 & 0x10;  */
+     cpu.segReg[sreg].soft_use = soft_use1 & 0x10;  
 }
 
 
