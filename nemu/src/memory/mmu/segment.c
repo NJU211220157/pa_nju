@@ -21,7 +21,7 @@ void load_sreg(uint8_t sreg)
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
 	 SegDesc segdesc;
-     segdesc.val[0] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc),4);
+     segdesc.val[0] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc), 4);
      segdesc.val[1] = hw_mem_read(cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc) + 4,4);
 	 assert(segdesc.present == 1);
 	 
