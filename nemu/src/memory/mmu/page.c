@@ -7,6 +7,8 @@ uint32_t hw_mem_read(paddr_t paddr, size_t len);
 paddr_t page_translate(laddr_t laddr)
 {
 #ifndef TLB_ENABLED
+    return 0;
+    //页目录和页表项的物理页需要偏移20位吗
 	uint32_t dir = laddr >> 22;//只有高十位
 	uint32_t page = (laddr << 10 ) >> 22;
 	uint32_t offset = laddr & 0xfff;
