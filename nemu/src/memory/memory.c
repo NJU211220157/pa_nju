@@ -44,6 +44,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 {
     if(cpu.cr0.pg == 1){
         if((laddr % 0x1000 + len) >= 0x1000){
+            return 0;
             uint32_t paddr_1 = page_translate(laddr);
             uint32_t len1 = 0x1000 - laddr % 0x1000;
             uint32_t val_1 = paddr_read(paddr_1, len1);
@@ -67,6 +68,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 {
 	if(cpu.cr0.pg == 1){
         if((laddr % 0x1000 + len) >= 0x1000){
+            return;
             uint32_t paddr_1 = page_translate(laddr);
             uint32_t len1 = 0x1000 - laddr % 0x1000;
             uint32_t data_1 = data & (0xffff >> (32 - len1 * 8));//低8位
