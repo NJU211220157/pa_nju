@@ -11,12 +11,12 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t page = (laddr << 10 ) >> 22;
 	uint32_t offset = laddr & 0xfff;
 	
-	PageDirectoryEntry pde;
-    pde.val = hw_mem_read(cpu.cr3.base + dir * sizeof(PageDirectoryEntry), 4);
+	PDE pde;
+    pde.val = hw_mem_read(cpu.cr3.base + dir * sizeof(PDE), 4);
     assert(pde.present == 1);
     
-	PageTableEntry pte;
-	pte.val = hw_mem_read(pde.page_frame + page * sizeof(PageTableEntry), 4);
+	PTE pte;
+	pte.val = hw_mem_read(pde.page_frame + page * sizeof(PTE), 4);
 	assert(pte.present == 1);
 	
 	uint32_t p_page = pte.page_frame << 20;
