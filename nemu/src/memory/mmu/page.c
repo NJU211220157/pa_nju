@@ -14,14 +14,14 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t offset = laddr & 0xfff;
 	
 	PDE pde;
-    pde.val = hw_mem_read((cpu.cr3.base << 20) + dir * sizeof(PDE), 4);
+    pde.val = hw_mem_read((cpu.cr3.base << 12) + dir * sizeof(PDE), 4);
     assert(pde.present == 1);
     
 	PTE pte;
-	pte.val = hw_mem_read((pde.page_frame << 20) + page * sizeof(PTE), 4);
+	pte.val = hw_mem_read((pde.page_frame << 12) + page * sizeof(PTE), 4);
 	assert(pte.present == 1);
 	
-	uint32_t p_page = pte.page_frame << 20;
+	uint32_t p_page = pte.page_frame << 12;
 	return p_page + offset;
 	
 #else
