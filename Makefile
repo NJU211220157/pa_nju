@@ -12,11 +12,11 @@ nemu:
 
 run: nemu
 	$(call git_commit, "run", $(TIME_MAKE))
-	./nemu/nemu --testcase matrix-mul 
+	./nemu/nemu --testcase add 
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel", $(TIME_MAKE))
-	./nemu/nemu --kernel --testcase matrix-mul
+	./nemu/nemu --kernel --testcase add
 
 debug: nemu
 	$(call git_commit, "debug", $(TIME_MAKE))
