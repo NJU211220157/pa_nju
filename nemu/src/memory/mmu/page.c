@@ -14,7 +14,7 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t offset = laddr & 0xfff;
 	
 	PDE pde;
-    pde.val = hw_mem_read((cpu.cr3.base << 12) + dir * sizeof(PDE), 4);
+    pde.val = hw_mem_read((cpu.cr3.base) + dir * sizeof(PDE), 4);
     assert(pde.present == 1);
     
 	PTE pte;
