@@ -7,7 +7,7 @@ uint32_t hw_mem_read(paddr_t paddr, size_t len);
 paddr_t page_translate(laddr_t laddr)
 {
 #ifndef TLB_ENABLED
-    //页目录和页表项的物理页需要偏移20位吗
+    //页目录和页表项的物理页需要偏移12位吗
     //return 0 甚至得到一样的结果
 	uint32_t dir = laddr >> 22;//只有高十位
 	uint32_t page = (laddr << 10 ) >> 22;
@@ -18,7 +18,7 @@ paddr_t page_translate(laddr_t laddr)
     assert(pde.present == 1);
     
 	PTE pte;
-	pte.val = hw_mem_read((pde.page_frame << 12) + page * sizeof(PTE), 4);
+	pte.val = hw_mem_read((pde.page_frame) + page * sizeof(PTE), 4);
 	assert(pte.present == 1);
 	
 	uint32_t p_page = pte.page_frame << 12;
