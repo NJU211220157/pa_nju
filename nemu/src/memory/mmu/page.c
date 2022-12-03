@@ -18,7 +18,7 @@ paddr_t page_translate(laddr_t laddr)
     assert(pde.present == 1);
     
 	PTE pte;
-	pte.val = hw_mem_read((pde.page_frame) + page_ * sizeof(PTE), sizeof(PTE));
+	pte.val = hw_mem_read((pde.page_frame << 12) + page_ * sizeof(PTE), sizeof(PTE));
 	assert(pte.present == 1);
 	
 	uint32_t p_page = pte.page_frame << 12;
