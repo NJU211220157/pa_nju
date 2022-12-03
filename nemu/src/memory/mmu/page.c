@@ -17,7 +17,7 @@ paddr_t page_translate(laddr_t laddr)
 	return paddr;
 	/*
 	uint32_t dir_ = (laddr >> 22) & 0x3FF;//只有高10位
-	uint32_t page_ = ((laddr << 10 ) >> 22) & 0x3FF;//取中间10位
+	uint32_t page_ = ((laddr >> 12) & 0x3FF;//取中间10位
 	uint32_t offset_ = laddr & 0xFFF;//低12位
 	
 	PDE pde;
