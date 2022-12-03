@@ -42,6 +42,7 @@ make_instr_func(ret_near_imm16)
     OPERAND rm;
 
     rm.type=OPR_MEM;
+    rm.sreg = SREG_CS;
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;
     operand_read(&rm);
