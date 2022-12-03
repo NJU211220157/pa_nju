@@ -15,7 +15,7 @@ paddr_t page_translate(laddr_t laddr)
 	
 	PDE pde;
     pde.val = hw_mem_read( cpu.cr3.base + dir_ * sizeof(PDE), sizeof(PDE));
-    assert(pde.present == 1);
+    //assert(pde.present == 1);
     
 	PTE pte;
 	pte.val = hw_mem_read( pde.page_frame + page_ * sizeof(PTE), sizeof(PTE));
