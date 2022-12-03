@@ -7,21 +7,23 @@ make_instr_func(call_near){
     
     //push eip;
     OPERAND rm;
+    rm.sreg = SREG_CS;
     cpu.gpr[4].val-=data_size/8;
     
     rm.type = OPR_MEM;
     rm.addr = cpu.gpr[4].val;
     rm.data_size = data_size;
-    rm.sreg = SREG_CS;
+    
     rm.val=cpu.eip+ 1 + (data_size/8);//important
     //rm.val=cpu.eip;
     
     operand_write(&rm);
     
     OPERAND rel;
+    rel.sreg = SREG_CS;
     rel.type = OPR_IMM;
     rel.addr = eip+1;
-    rel.sreg = SREG_CS;
+    
     rel.data_size = data_size;
     
     operand_read(&rel);
@@ -44,12 +46,13 @@ make_instr_func(call_near_indirect)
     
     //push eip;
     OPERAND rm;
+    rm.sreg = SREG_CS;
     cpu.gpr[4].val-=data_size/8;
     
     rm.type=OPR_MEM;
     rm.addr=cpu.gpr[4].val;
     rm.data_size=data_size;
-    rm.sreg = SREG_CS;
+    
     
     rm.val=cpu.eip+ 1 + (data_size/8);//important
     //rm.val=cpu.eip;
@@ -58,9 +61,10 @@ make_instr_func(call_near_indirect)
 
     
 
-    OPERAND t;
-    t.type=OPR_MEM;
+    OPERAND t; 
     t.sreg = SREG_CS;
+    t.type=OPR_MEM;
+   
     t.data_size=data_size;
     int len=1;
     len += modrm_rm(eip+1,&t);
