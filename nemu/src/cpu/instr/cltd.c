@@ -5,7 +5,7 @@ make_instr_func(cltd)
 	OPERAND ax, dx;
 	//
 	ax.sreg = SREG_CS;
-	bx.sreg = SREG_CS;
+	dx.sreg = SREG_CS;
 	//
 	ax.type = OPR_REG;
 	dx.type = OPR_REG;
