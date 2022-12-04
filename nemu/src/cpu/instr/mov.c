@@ -33,7 +33,7 @@ make_instr_func(mov_c2r_l){
     
     len += modrm_r_rm(eip + 1, &r, &rm);
     
-    rm.type = OPR_CREG;
+    rm.type = OPR_CREG;//没有这个语句，段错误
     operand_read(&rm);
     r.val = rm.val;
     operand_write(&r);
