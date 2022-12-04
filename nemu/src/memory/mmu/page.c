@@ -9,8 +9,7 @@ paddr_t page_translate(laddr_t laddr)
 #ifndef TLB_ENABLED
     //页目录和页表项的物理页需要偏移12位吗
     //return 0 甚至得到一样的结果
-    return 0;
-/*	uint32_t dir_ = (laddr >> 22) & 0x3FF;//只有高10位
+	uint32_t dir_ = (laddr >> 22) & 0x3FF;//只有高10位
 	uint32_t page_ = (laddr >> 12) & 0x3FF;//取中间10位
 	uint32_t offset_ = laddr & 0xFFF;//低12位
 	
@@ -23,7 +22,7 @@ paddr_t page_translate(laddr_t laddr)
 	assert(pte.present == 1);
 	
 	uint32_t p_page = pte.page_frame << 12;
-	return p_page + offset_;*/
+	return p_page + offset_;
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
 #endif
