@@ -29,13 +29,14 @@ make_instr_func(mov_c2r_l){
     OPERAND r,rm;
     
     r.data_size = 32;
-    rm.data_size = data_size;
+    rm.data_size = 32;
     
     len += modrm_r_rm(eip + 1, &r, &rm);
     
-    operand_read(&r);
-    rm.val = r.val;
-    operand_write(&rm);
+    rm.type = OPR_CREG;
+    operand_read(&rm);
+    r.val = rm.val;
+    operand_write(&r);
     
     print_asm_2("mov", "", len, &rm, &r);
     
@@ -48,11 +49,12 @@ make_instr_func(mov_r2c_l){
     OPERAND r,rm;
 
     r.data_size = 32;
-    rm.data_size = data_size;
+    rm.data_size = 32;
     
     len += modrm_r_rm(eip + 1, &r, &rm);
     
     operand_read(&rm);
+    r.type = OPR_CREG;
     r.val = rm.val;
     operand_write(&r);
     
