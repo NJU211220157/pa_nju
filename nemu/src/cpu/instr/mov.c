@@ -27,8 +27,6 @@ make_instr_func(mov_c2r_l){
     int len = 1;
     
     OPERAND r,rm;
-    r.sreg = SREG_CS;
-    rm.sreg = SREG_CS;
     
     r.data_size = 32;
     rm.data_size = data_size;
@@ -48,9 +46,7 @@ make_instr_func(mov_r2c_l){
     int len = 1;
     
     OPERAND r,rm;
-    r.sreg = SREG_CS;
-    rm.sreg = SREG_CS;
-    
+
     r.data_size = 32;
     rm.data_size = data_size;
     
