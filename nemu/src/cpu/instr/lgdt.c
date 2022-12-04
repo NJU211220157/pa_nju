@@ -6,6 +6,7 @@ Put the implementations of `lgdt' instructions here.
 make_instr_func(lgdt)
 {
     OPERAND rm;
+    rm.sreg = SREG_CS;
     rm.data_size = 16;
     int len = 1;
     
