@@ -18,6 +18,7 @@ uint32_t loader()
 {
 	Elf32_Ehdr *elf;
 	Elf32_Phdr *ph, *eph;
+	uint8_t* write;
 
 #ifdef HAS_DEVICE_IDE
 	uint8_t buf[4096];
@@ -36,11 +37,18 @@ uint32_t loader()
 	{
 		if (ph->p_type == PT_LOAD)
 		{
+#ifndef IA32_PAGE
+        write = (void *) ph->p_vaddr;
+#else
+        write = (void *) mm_malloc(ph->p_vaddr, ph->mem_sz);
+#endif
 		    //panic("please!");
 /* TODO: copy the segment from the ELF file to its proper memory area */
-            memcpy((void *)ph->p_vaddr, (void *)ph->p_offset, ph->p_filesz);
+            memcpy((void *) write, (void *)ph->p_offset, ph->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
-            memset((void *)ph->p_vaddr + ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
+            memset((void *) (write + ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
+            
+            
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
 			extern uint32_t brk;
