@@ -6,6 +6,9 @@ uint32_t hw_mem_read(paddr_t paddr, size_t len);
 // translate from linear address to physical address
 paddr_t page_translate(laddr_t laddr)
 {
+#ifndef IA32_PAGE
+    return 0;
+#endif
 #ifndef TLB_ENABLED
     //页目录和页表项的物理页需要偏移12位吗
     //return 0 甚至得到一样的结果
