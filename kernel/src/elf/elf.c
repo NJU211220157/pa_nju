@@ -40,7 +40,7 @@ uint32_t loader()
 #ifndef IA32_PAGE
         write = (void *) ph->p_vaddr;
 #else
-        write = (void *) mm_malloc(ph->p_vaddr, ph->mem_sz);
+        write = (void *) mm_malloc(ph->p_vaddr, ph->p_memsz);
 #endif
 		    //panic("please!");
 /* TODO: copy the segment from the ELF file to its proper memory area */
